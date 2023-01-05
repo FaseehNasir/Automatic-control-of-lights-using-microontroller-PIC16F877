@@ -1,0 +1,3084 @@
+MPASM  5.51                      UNTITLED.ASM   12-7-2022  9:00:57         PAGE  1
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+Warning[205]: Found directive in column 1. (LIST)
+                      00001 LIST P=16F877 
+                      00002  INCLUDE <P16F877.INC> 
+                      00001         LIST
+                      00002 
+                      00003 ;==========================================================================
+                      00004 ;  MPASM PIC16F877 processor include
+                      00005 ; 
+                      00006 ;  (c) Copyright 1999-2013 Microchip Technology, All rights reserved
+                      00007 ;==========================================================================
+                      00008 
+                      00540         LIST
+                      00003 #INCLUDE<LCDCONFIGURATION.INC>
+                      00001 DTR MACRO VPO
+                      00002 MOVLW VPO
+                      00003 MOVWF PORTD
+                      00004 BSF PORTC,0
+                      00005 BCF PORTC,1
+                      00006 BSF PORTC,2
+                      00007 DELAY 0x80
+                      00008 BCF PORTC,2
+Warning[205]: Found directive in column 1. (ENDM)
+                      00009 ENDM
+                      00010 
+                      00011 
+                      00012 CMD MACRO VCO
+                      00013 MOVLW VCO
+                      00014 MOVWF PORTD
+                      00015 BCF PORTC,0
+                      00016 BCF PORTC,1
+                      00017 BSF PORTC,2
+                      00018 DELAY 0x80
+                      00019 BCF PORTC,2
+Warning[205]: Found directive in column 1. (ENDM)
+                      00020 ENDM
+                      00004 DELAY MACRO VAL
+                      00005 LOCAL LABL
+                      00006 BANKSEL OPTION_REG
+                      00007 MOVLW VAL
+                      00008 MOVWF OPTION_REG
+                      00009 BANKSEL TMR0
+                      00010 CLRF TMR0
+                      00011 BCF INTCON,T0IF
+                      00012 LABL:
+                      00013 BTFSS INTCON,T0IF
+                      00014 GOTO LABL
+Warning[205]: Found directive in column 1. (ENDM)
+                      00015 ENDM
+Warning[207]: Found label after column 1. (FLAGS)
+  00000020            00016  FLAGS EQU 0x20 
+Warning[207]: Found label after column 1. (ADC_DATA)
+  00000021            00017  ADC_DATA EQU 0x21 
+Warning[207]: Found label after column 1. (DATA_READY)
+MPASM  5.51                      UNTITLED.ASM   12-7-2022  9:00:57         PAGE  2
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+  00000000            00018  DATA_READY EQU 0X00
+                      00019  ORG 0x00 
+0000   2???           00020  GOTO ITR 
+                      00021  ORG 0x08 
+0008   2???           00022  GOTO INT_S 
+Warning[207]: Found label after column 1. (ITR)
+0009                  00023  ITR
+0009   0188           00024  CLRF PORTD
+000A   0187           00025  CLRF PORTC 
+000B   1683 1303      00026  BANKSEL TRISC
+Warning[203]: Found opcode in column 1. (CLRF)
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+000D   0188           00027 CLRF TRISD
+Warning[203]: Found opcode in column 1. (CLRF)
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+000E   0187           00028 CLRF TRISC 
+Warning[203]: Found opcode in column 1. (MOVLW)
+000F   300E           00029 MOVLW 0x0E 
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0010   009F           00030  MOVWF ADCON1 
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0011   1405           00031  BSF TRISA,0 
+0012   1283 1303      00032  BANKSEL PORTB
+0014   3041           00033  MOVLW 0x41  
+0015   009F           00034  MOVWF ADCON0 
+Warning[203]: Found opcode in column 1. (BSF)
+0016   151F           00035 BSF ADCON0,GO
+0017   1020           00036  BCF FLAGS,DATA_READY
+0018   151F           00037  BSF ADCON0,GO
+                      00038  CMD 0x38
+Warning[203]: Found opcode in column 1. (MOVLW)
+0019   3038               M MOVLW 0x38
+Warning[203]: Found opcode in column 1. (MOVWF)
+001A   0088               M MOVWF PORTD
+Warning[203]: Found opcode in column 1. (BCF)
+001B   1007               M BCF PORTC,0
+Warning[203]: Found opcode in column 1. (BCF)
+001C   1087               M BCF PORTC,1
+Warning[203]: Found opcode in column 1. (BSF)
+001D   1507               M BSF PORTC,2
+Warning[206]: Found call to macro in column 1. (DELAY)
+                          M DELAY 0x80
+Warning[205]: Found directive in column 1. (LOCAL)
+  0000                    M LOCAL LABL
+Warning[205]: Found directive in column 1. (BANKSEL)
+001E   1683 1303          M BANKSEL OPTION_REG
+Warning[203]: Found opcode in column 1. (MOVLW)
+0020   3080               M MOVLW 0x80
+Warning[203]: Found opcode in column 1. (MOVWF)
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0021   0081               M MOVWF OPTION_REG
+Warning[205]: Found directive in column 1. (BANKSEL)
+0022   1283 1303          M BANKSEL TMR0
+MPASM  5.51                      UNTITLED.ASM   12-7-2022  9:00:57         PAGE  3
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+Warning[203]: Found opcode in column 1. (CLRF)
+0024   0181               M CLRF TMR0
+Warning[203]: Found opcode in column 1. (BCF)
+0025   110B               M BCF INTCON,T0IF
+0026                      M LABL:
+Warning[203]: Found opcode in column 1. (BTFSS)
+0026   1D0B               M BTFSS INTCON,T0IF
+Warning[203]: Found opcode in column 1. (GOTO)
+0027   2???               M GOTO LABL
+Warning[203]: Found opcode in column 1. (BCF)
+0028   1107               M BCF PORTC,2
+                      00039  CMD 0x06
+Warning[203]: Found opcode in column 1. (MOVLW)
+0029   3006               M MOVLW 0x06
+Warning[203]: Found opcode in column 1. (MOVWF)
+002A   0088               M MOVWF PORTD
+Warning[203]: Found opcode in column 1. (BCF)
+002B   1007               M BCF PORTC,0
+Warning[203]: Found opcode in column 1. (BCF)
+002C   1087               M BCF PORTC,1
+Warning[203]: Found opcode in column 1. (BSF)
+002D   1507               M BSF PORTC,2
+Warning[206]: Found call to macro in column 1. (DELAY)
+                          M DELAY 0x80
+Warning[205]: Found directive in column 1. (LOCAL)
+  0000                    M LOCAL LABL
+Warning[205]: Found directive in column 1. (BANKSEL)
+002E   1683 1303          M BANKSEL OPTION_REG
+Warning[203]: Found opcode in column 1. (MOVLW)
+0030   3080               M MOVLW 0x80
+Warning[203]: Found opcode in column 1. (MOVWF)
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0031   0081               M MOVWF OPTION_REG
+Warning[205]: Found directive in column 1. (BANKSEL)
+0032   1283 1303          M BANKSEL TMR0
+Warning[203]: Found opcode in column 1. (CLRF)
+0034   0181               M CLRF TMR0
+Warning[203]: Found opcode in column 1. (BCF)
+0035   110B               M BCF INTCON,T0IF
+0036                      M LABL:
+Warning[203]: Found opcode in column 1. (BTFSS)
+0036   1D0B               M BTFSS INTCON,T0IF
+Warning[203]: Found opcode in column 1. (GOTO)
+0037   2???               M GOTO LABL
+Warning[203]: Found opcode in column 1. (BCF)
+0038   1107               M BCF PORTC,2
+                      00040  CMD 0x0C
+Warning[203]: Found opcode in column 1. (MOVLW)
+0039   300C               M MOVLW 0x0C
+Warning[203]: Found opcode in column 1. (MOVWF)
+003A   0088               M MOVWF PORTD
+Warning[203]: Found opcode in column 1. (BCF)
+003B   1007               M BCF PORTC,0
+MPASM  5.51                      UNTITLED.ASM   12-7-2022  9:00:57         PAGE  4
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+Warning[203]: Found opcode in column 1. (BCF)
+003C   1087               M BCF PORTC,1
+Warning[203]: Found opcode in column 1. (BSF)
+003D   1507               M BSF PORTC,2
+Warning[206]: Found call to macro in column 1. (DELAY)
+                          M DELAY 0x80
+Warning[205]: Found directive in column 1. (LOCAL)
+  0000                    M LOCAL LABL
+Warning[205]: Found directive in column 1. (BANKSEL)
+003E   1683 1303          M BANKSEL OPTION_REG
+Warning[203]: Found opcode in column 1. (MOVLW)
+0040   3080               M MOVLW 0x80
+Warning[203]: Found opcode in column 1. (MOVWF)
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0041   0081               M MOVWF OPTION_REG
+Warning[205]: Found directive in column 1. (BANKSEL)
+0042   1283 1303          M BANKSEL TMR0
+Warning[203]: Found opcode in column 1. (CLRF)
+0044   0181               M CLRF TMR0
+Warning[203]: Found opcode in column 1. (BCF)
+0045   110B               M BCF INTCON,T0IF
+0046                      M LABL:
+Warning[203]: Found opcode in column 1. (BTFSS)
+0046   1D0B               M BTFSS INTCON,T0IF
+Warning[203]: Found opcode in column 1. (GOTO)
+0047   2???               M GOTO LABL
+Warning[203]: Found opcode in column 1. (BCF)
+0048   1107               M BCF PORTC,2
+                      00041  CMD 0x83
+Warning[203]: Found opcode in column 1. (MOVLW)
+0049   3083               M MOVLW 0x83
+Warning[203]: Found opcode in column 1. (MOVWF)
+004A   0088               M MOVWF PORTD
+Warning[203]: Found opcode in column 1. (BCF)
+004B   1007               M BCF PORTC,0
+Warning[203]: Found opcode in column 1. (BCF)
+004C   1087               M BCF PORTC,1
+Warning[203]: Found opcode in column 1. (BSF)
+004D   1507               M BSF PORTC,2
+Warning[206]: Found call to macro in column 1. (DELAY)
+                          M DELAY 0x80
+Warning[205]: Found directive in column 1. (LOCAL)
+  0000                    M LOCAL LABL
+Warning[205]: Found directive in column 1. (BANKSEL)
+004E   1683 1303          M BANKSEL OPTION_REG
+Warning[203]: Found opcode in column 1. (MOVLW)
+0050   3080               M MOVLW 0x80
+Warning[203]: Found opcode in column 1. (MOVWF)
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0051   0081               M MOVWF OPTION_REG
+Warning[205]: Found directive in column 1. (BANKSEL)
+0052   1283 1303          M BANKSEL TMR0
+Warning[203]: Found opcode in column 1. (CLRF)
+MPASM  5.51                      UNTITLED.ASM   12-7-2022  9:00:57         PAGE  5
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0054   0181               M CLRF TMR0
+Warning[203]: Found opcode in column 1. (BCF)
+0055   110B               M BCF INTCON,T0IF
+0056                      M LABL:
+Warning[203]: Found opcode in column 1. (BTFSS)
+0056   1D0B               M BTFSS INTCON,T0IF
+Warning[203]: Found opcode in column 1. (GOTO)
+0057   2???               M GOTO LABL
+Warning[203]: Found opcode in column 1. (BCF)
+0058   1107               M BCF PORTC,2
+                      00042  DTR 'W'
+Warning[203]: Found opcode in column 1. (MOVLW)
+0059   3057               M MOVLW 'W'
+Warning[203]: Found opcode in column 1. (MOVWF)
+005A   0088               M MOVWF PORTD
+Warning[203]: Found opcode in column 1. (BSF)
+005B   1407               M BSF PORTC,0
+Warning[203]: Found opcode in column 1. (BCF)
+005C   1087               M BCF PORTC,1
+Warning[203]: Found opcode in column 1. (BSF)
+005D   1507               M BSF PORTC,2
+Warning[206]: Found call to macro in column 1. (DELAY)
+                          M DELAY 0x80
+Warning[205]: Found directive in column 1. (LOCAL)
+  0000                    M LOCAL LABL
+Warning[205]: Found directive in column 1. (BANKSEL)
+005E   1683 1303          M BANKSEL OPTION_REG
+Warning[203]: Found opcode in column 1. (MOVLW)
+0060   3080               M MOVLW 0x80
+Warning[203]: Found opcode in column 1. (MOVWF)
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0061   0081               M MOVWF OPTION_REG
+Warning[205]: Found directive in column 1. (BANKSEL)
+0062   1283 1303          M BANKSEL TMR0
+Warning[203]: Found opcode in column 1. (CLRF)
+0064   0181               M CLRF TMR0
+Warning[203]: Found opcode in column 1. (BCF)
+0065   110B               M BCF INTCON,T0IF
+0066                      M LABL:
+Warning[203]: Found opcode in column 1. (BTFSS)
+0066   1D0B               M BTFSS INTCON,T0IF
+Warning[203]: Found opcode in column 1. (GOTO)
+0067   2???               M GOTO LABL
+Warning[203]: Found opcode in column 1. (BCF)
+0068   1107               M BCF PORTC,2
+                      00043  DTR 'E'
+Warning[203]: Found opcode in column 1. (MOVLW)
+0069   3045               M MOVLW 'E'
+Warning[203]: Found opcode in column 1. (MOVWF)
+006A   0088               M MOVWF PORTD
+Warning[203]: Found opcode in column 1. (BSF)
+006B   1407               M BSF PORTC,0
+Warning[203]: Found opcode in column 1. (BCF)
+MPASM  5.51                      UNTITLED.ASM   12-7-2022  9:00:57         PAGE  6
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+006C   1087               M BCF PORTC,1
+Warning[203]: Found opcode in column 1. (BSF)
+006D   1507               M BSF PORTC,2
+Warning[206]: Found call to macro in column 1. (DELAY)
+                          M DELAY 0x80
+Warning[205]: Found directive in column 1. (LOCAL)
+  0000                    M LOCAL LABL
+Warning[205]: Found directive in column 1. (BANKSEL)
+006E   1683 1303          M BANKSEL OPTION_REG
+Warning[203]: Found opcode in column 1. (MOVLW)
+0070   3080               M MOVLW 0x80
+Warning[203]: Found opcode in column 1. (MOVWF)
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0071   0081               M MOVWF OPTION_REG
+Warning[205]: Found directive in column 1. (BANKSEL)
+0072   1283 1303          M BANKSEL TMR0
+Warning[203]: Found opcode in column 1. (CLRF)
+0074   0181               M CLRF TMR0
+Warning[203]: Found opcode in column 1. (BCF)
+0075   110B               M BCF INTCON,T0IF
+0076                      M LABL:
+Warning[203]: Found opcode in column 1. (BTFSS)
+0076   1D0B               M BTFSS INTCON,T0IF
+Warning[203]: Found opcode in column 1. (GOTO)
+0077   2???               M GOTO LABL
+Warning[203]: Found opcode in column 1. (BCF)
+0078   1107               M BCF PORTC,2
+                      00044  DTR 'L'
+Warning[203]: Found opcode in column 1. (MOVLW)
+0079   304C               M MOVLW 'L'
+Warning[203]: Found opcode in column 1. (MOVWF)
+007A   0088               M MOVWF PORTD
+Warning[203]: Found opcode in column 1. (BSF)
+007B   1407               M BSF PORTC,0
+Warning[203]: Found opcode in column 1. (BCF)
+007C   1087               M BCF PORTC,1
+Warning[203]: Found opcode in column 1. (BSF)
+007D   1507               M BSF PORTC,2
+Warning[206]: Found call to macro in column 1. (DELAY)
+                          M DELAY 0x80
+Warning[205]: Found directive in column 1. (LOCAL)
+  0000                    M LOCAL LABL
+Warning[205]: Found directive in column 1. (BANKSEL)
+007E   1683 1303          M BANKSEL OPTION_REG
+Warning[203]: Found opcode in column 1. (MOVLW)
+0080   3080               M MOVLW 0x80
+Warning[203]: Found opcode in column 1. (MOVWF)
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0081   0081               M MOVWF OPTION_REG
+Warning[205]: Found directive in column 1. (BANKSEL)
+0082   1283 1303          M BANKSEL TMR0
+Warning[203]: Found opcode in column 1. (CLRF)
+0084   0181               M CLRF TMR0
+MPASM  5.51                      UNTITLED.ASM   12-7-2022  9:00:57         PAGE  7
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+Warning[203]: Found opcode in column 1. (BCF)
+0085   110B               M BCF INTCON,T0IF
+0086                      M LABL:
+Warning[203]: Found opcode in column 1. (BTFSS)
+0086   1D0B               M BTFSS INTCON,T0IF
+Warning[203]: Found opcode in column 1. (GOTO)
+0087   2???               M GOTO LABL
+Warning[203]: Found opcode in column 1. (BCF)
+0088   1107               M BCF PORTC,2
+                      00045  DTR 'C'
+Warning[203]: Found opcode in column 1. (MOVLW)
+0089   3043               M MOVLW 'C'
+Warning[203]: Found opcode in column 1. (MOVWF)
+008A   0088               M MOVWF PORTD
+Warning[203]: Found opcode in column 1. (BSF)
+008B   1407               M BSF PORTC,0
+Warning[203]: Found opcode in column 1. (BCF)
+008C   1087               M BCF PORTC,1
+Warning[203]: Found opcode in column 1. (BSF)
+008D   1507               M BSF PORTC,2
+Warning[206]: Found call to macro in column 1. (DELAY)
+                          M DELAY 0x80
+Warning[205]: Found directive in column 1. (LOCAL)
+  0000                    M LOCAL LABL
+Warning[205]: Found directive in column 1. (BANKSEL)
+008E   1683 1303          M BANKSEL OPTION_REG
+Warning[203]: Found opcode in column 1. (MOVLW)
+0090   3080               M MOVLW 0x80
+Warning[203]: Found opcode in column 1. (MOVWF)
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0091   0081               M MOVWF OPTION_REG
+Warning[205]: Found directive in column 1. (BANKSEL)
+0092   1283 1303          M BANKSEL TMR0
+Warning[203]: Found opcode in column 1. (CLRF)
+0094   0181               M CLRF TMR0
+Warning[203]: Found opcode in column 1. (BCF)
+0095   110B               M BCF INTCON,T0IF
+0096                      M LABL:
+Warning[203]: Found opcode in column 1. (BTFSS)
+0096   1D0B               M BTFSS INTCON,T0IF
+Warning[203]: Found opcode in column 1. (GOTO)
+0097   2???               M GOTO LABL
+Warning[203]: Found opcode in column 1. (BCF)
+0098   1107               M BCF PORTC,2
+                      00046  DTR 'O'
+Warning[203]: Found opcode in column 1. (MOVLW)
+0099   304F               M MOVLW 'O'
+Warning[203]: Found opcode in column 1. (MOVWF)
+009A   0088               M MOVWF PORTD
+Warning[203]: Found opcode in column 1. (BSF)
+009B   1407               M BSF PORTC,0
+Warning[203]: Found opcode in column 1. (BCF)
+009C   1087               M BCF PORTC,1
+MPASM  5.51                      UNTITLED.ASM   12-7-2022  9:00:57         PAGE  8
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+Warning[203]: Found opcode in column 1. (BSF)
+009D   1507               M BSF PORTC,2
+Warning[206]: Found call to macro in column 1. (DELAY)
+                          M DELAY 0x80
+Warning[205]: Found directive in column 1. (LOCAL)
+  0000                    M LOCAL LABL
+Warning[205]: Found directive in column 1. (BANKSEL)
+009E   1683 1303          M BANKSEL OPTION_REG
+Warning[203]: Found opcode in column 1. (MOVLW)
+00A0   3080               M MOVLW 0x80
+Warning[203]: Found opcode in column 1. (MOVWF)
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+00A1   0081               M MOVWF OPTION_REG
+Warning[205]: Found directive in column 1. (BANKSEL)
+00A2   1283 1303          M BANKSEL TMR0
+Warning[203]: Found opcode in column 1. (CLRF)
+00A4   0181               M CLRF TMR0
+Warning[203]: Found opcode in column 1. (BCF)
+00A5   110B               M BCF INTCON,T0IF
+00A6                      M LABL:
+Warning[203]: Found opcode in column 1. (BTFSS)
+00A6   1D0B               M BTFSS INTCON,T0IF
+Warning[203]: Found opcode in column 1. (GOTO)
+00A7   2???               M GOTO LABL
+Warning[203]: Found opcode in column 1. (BCF)
+00A8   1107               M BCF PORTC,2
+                      00047  DTR 'M'
+Warning[203]: Found opcode in column 1. (MOVLW)
+00A9   304D               M MOVLW 'M'
+Warning[203]: Found opcode in column 1. (MOVWF)
+00AA   0088               M MOVWF PORTD
+Warning[203]: Found opcode in column 1. (BSF)
+00AB   1407               M BSF PORTC,0
+Warning[203]: Found opcode in column 1. (BCF)
+00AC   1087               M BCF PORTC,1
+Warning[203]: Found opcode in column 1. (BSF)
+00AD   1507               M BSF PORTC,2
+Warning[206]: Found call to macro in column 1. (DELAY)
+                          M DELAY 0x80
+Warning[205]: Found directive in column 1. (LOCAL)
+  0000                    M LOCAL LABL
+Warning[205]: Found directive in column 1. (BANKSEL)
+00AE   1683 1303          M BANKSEL OPTION_REG
+Warning[203]: Found opcode in column 1. (MOVLW)
+00B0   3080               M MOVLW 0x80
+Warning[203]: Found opcode in column 1. (MOVWF)
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+00B1   0081               M MOVWF OPTION_REG
+Warning[205]: Found directive in column 1. (BANKSEL)
+00B2   1283 1303          M BANKSEL TMR0
+Warning[203]: Found opcode in column 1. (CLRF)
+00B4   0181               M CLRF TMR0
+Warning[203]: Found opcode in column 1. (BCF)
+MPASM  5.51                      UNTITLED.ASM   12-7-2022  9:00:57         PAGE  9
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+00B5   110B               M BCF INTCON,T0IF
+00B6                      M LABL:
+Warning[203]: Found opcode in column 1. (BTFSS)
+00B6   1D0B               M BTFSS INTCON,T0IF
+Warning[203]: Found opcode in column 1. (GOTO)
+00B7   2???               M GOTO LABL
+Warning[203]: Found opcode in column 1. (BCF)
+00B8   1107               M BCF PORTC,2
+                      00048  DTR 'E'
+Warning[203]: Found opcode in column 1. (MOVLW)
+00B9   3045               M MOVLW 'E'
+Warning[203]: Found opcode in column 1. (MOVWF)
+00BA   0088               M MOVWF PORTD
+Warning[203]: Found opcode in column 1. (BSF)
+00BB   1407               M BSF PORTC,0
+Warning[203]: Found opcode in column 1. (BCF)
+00BC   1087               M BCF PORTC,1
+Warning[203]: Found opcode in column 1. (BSF)
+00BD   1507               M BSF PORTC,2
+Warning[206]: Found call to macro in column 1. (DELAY)
+                          M DELAY 0x80
+Warning[205]: Found directive in column 1. (LOCAL)
+  0000                    M LOCAL LABL
+Warning[205]: Found directive in column 1. (BANKSEL)
+00BE   1683 1303          M BANKSEL OPTION_REG
+Warning[203]: Found opcode in column 1. (MOVLW)
+00C0   3080               M MOVLW 0x80
+Warning[203]: Found opcode in column 1. (MOVWF)
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+00C1   0081               M MOVWF OPTION_REG
+Warning[205]: Found directive in column 1. (BANKSEL)
+00C2   1283 1303          M BANKSEL TMR0
+Warning[203]: Found opcode in column 1. (CLRF)
+00C4   0181               M CLRF TMR0
+Warning[203]: Found opcode in column 1. (BCF)
+00C5   110B               M BCF INTCON,T0IF
+00C6                      M LABL:
+Warning[203]: Found opcode in column 1. (BTFSS)
+00C6   1D0B               M BTFSS INTCON,T0IF
+Warning[203]: Found opcode in column 1. (GOTO)
+00C7   2???               M GOTO LABL
+Warning[203]: Found opcode in column 1. (BCF)
+00C8   1107               M BCF PORTC,2
+                      00049  DELAY 0x87
+Warning[205]: Found directive in column 1. (LOCAL)
+  0000                    M LOCAL LABL
+Warning[205]: Found directive in column 1. (BANKSEL)
+00C9   1683 1303          M BANKSEL OPTION_REG
+Warning[203]: Found opcode in column 1. (MOVLW)
+00CB   3087               M MOVLW 0x87
+Warning[203]: Found opcode in column 1. (MOVWF)
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+00CC   0081               M MOVWF OPTION_REG
+MPASM  5.51                      UNTITLED.ASM   12-7-2022  9:00:57         PAGE 10
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+Warning[205]: Found directive in column 1. (BANKSEL)
+00CD   1283 1303          M BANKSEL TMR0
+Warning[203]: Found opcode in column 1. (CLRF)
+00CF   0181               M CLRF TMR0
+Warning[203]: Found opcode in column 1. (BCF)
+00D0   110B               M BCF INTCON,T0IF
+00D1                      M LABL:
+Warning[203]: Found opcode in column 1. (BTFSS)
+00D1   1D0B               M BTFSS INTCON,T0IF
+Warning[203]: Found opcode in column 1. (GOTO)
+00D2   2???               M GOTO LABL
+00D3                  00050 MAIN 
+Warning[203]: Found opcode in column 1. (CLRWDT)
+00D3   0064           00051 CLRWDT
+00D4   1D1F           00052  BTFSS ADCON0,GO 
+00D5   2???           00053  GOTO INT_S
+00D6   1020           00054  BCF FLAGS,DATA_READY 
+00D7   0821           00055  MOVF ADC_DATA,W 
+00D8   3C02           00056   SUBLW 0x02
+00D9   1903           00057  BTFSC STATUS,Z
+00DA   2???           00058  GOTO LABEL1
+Warning[203]: Found opcode in column 1. (MOVF)
+00DB   0821           00059 MOVF ADC_DATA,W
+Warning[203]: Found opcode in column 1. (SUBLW)
+00DC   3C2A           00060 SUBLW 0X2A
+Warning[203]: Found opcode in column 1. (BTFSC)
+00DD   1903           00061 BTFSC STATUS,Z
+Warning[203]: Found opcode in column 1. (GOTO)
+00DE   2???           00062 GOTO LABEL2
+00DF   0821           00063   MOVF ADC_DATA,W
+00E0   3C7F           00064  SUBLW 0x7F
+00E1   1903           00065  BTFSC STATUS,Z
+00E2   2???           00066  GOTO LABEL3
+00E3   0821           00067   MOVF ADC_DATA,W
+00E4   3CF3           00068  SUBLW 0xF3
+00E5   1903           00069  BTFSC STATUS,Z
+00E6   2???           00070  GOTO LABEL4
+Warning[203]: Found opcode in column 1. (GOTO)
+00E7   2???           00071 GOTO MAIN  
+00E8                  00072 LABEL1
+Warning[206]: Found call to macro in column 1. (CMD)
+                      00073 CMD 0X01
+Warning[203]: Found opcode in column 1. (MOVLW)
+00E8   3001               M MOVLW 0X01
+Warning[203]: Found opcode in column 1. (MOVWF)
+00E9   0088               M MOVWF PORTD
+Warning[203]: Found opcode in column 1. (BCF)
+00EA   1007               M BCF PORTC,0
+Warning[203]: Found opcode in column 1. (BCF)
+00EB   1087               M BCF PORTC,1
+Warning[203]: Found opcode in column 1. (BSF)
+00EC   1507               M BSF PORTC,2
+Warning[206]: Found call to macro in column 1. (DELAY)
+MPASM  5.51                      UNTITLED.ASM   12-7-2022  9:00:57         PAGE 11
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                          M DELAY 0x80
+Warning[205]: Found directive in column 1. (LOCAL)
+  0000                    M LOCAL LABL
+Warning[205]: Found directive in column 1. (BANKSEL)
+00ED   1683 1303          M BANKSEL OPTION_REG
+Warning[203]: Found opcode in column 1. (MOVLW)
+00EF   3080               M MOVLW 0x80
+Warning[203]: Found opcode in column 1. (MOVWF)
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+00F0   0081               M MOVWF OPTION_REG
+Warning[205]: Found directive in column 1. (BANKSEL)
+00F1   1283 1303          M BANKSEL TMR0
+Warning[203]: Found opcode in column 1. (CLRF)
+00F3   0181               M CLRF TMR0
+Warning[203]: Found opcode in column 1. (BCF)
+00F4   110B               M BCF INTCON,T0IF
+00F5                      M LABL:
+Warning[203]: Found opcode in column 1. (BTFSS)
+00F5   1D0B               M BTFSS INTCON,T0IF
+Warning[203]: Found opcode in column 1. (GOTO)
+00F6   2???               M GOTO LABL
+Warning[203]: Found opcode in column 1. (BCF)
+00F7   1107               M BCF PORTC,2
+Warning[206]: Found call to macro in column 1. (CMD)
+                      00074 CMD 0X80
+Warning[203]: Found opcode in column 1. (MOVLW)
+00F8   3080               M MOVLW 0X80
+Warning[203]: Found opcode in column 1. (MOVWF)
+00F9   0088               M MOVWF PORTD
+Warning[203]: Found opcode in column 1. (BCF)
+00FA   1007               M BCF PORTC,0
+Warning[203]: Found opcode in column 1. (BCF)
+00FB   1087               M BCF PORTC,1
+Warning[203]: Found opcode in column 1. (BSF)
+00FC   1507               M BSF PORTC,2
+Warning[206]: Found call to macro in column 1. (DELAY)
+                          M DELAY 0x80
+Warning[205]: Found directive in column 1. (LOCAL)
+  0000                    M LOCAL LABL
+Warning[205]: Found directive in column 1. (BANKSEL)
+00FD   1683 1303          M BANKSEL OPTION_REG
+Warning[203]: Found opcode in column 1. (MOVLW)
+00FF   3080               M MOVLW 0x80
+Warning[203]: Found opcode in column 1. (MOVWF)
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0100   0081               M MOVWF OPTION_REG
+Warning[205]: Found directive in column 1. (BANKSEL)
+0101   1283 1303          M BANKSEL TMR0
+Warning[203]: Found opcode in column 1. (CLRF)
+0103   0181               M CLRF TMR0
+Warning[203]: Found opcode in column 1. (BCF)
+0104   110B               M BCF INTCON,T0IF
+0105                      M LABL:
+MPASM  5.51                      UNTITLED.ASM   12-7-2022  9:00:57         PAGE 12
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+Warning[203]: Found opcode in column 1. (BTFSS)
+0105   1D0B               M BTFSS INTCON,T0IF
+Warning[203]: Found opcode in column 1. (GOTO)
+0106   2???               M GOTO LABL
+Warning[203]: Found opcode in column 1. (BCF)
+0107   1107               M BCF PORTC,2
+Warning[203]: Found opcode in column 1. (CLRF)
+0108   0187           00075 CLRF PORTC
+Warning[203]: Found opcode in column 1. (BSF)
+0109   1607           00076 BSF PORTC,4
+Warning[203]: Found opcode in column 1. (BSF)
+010A   1687           00077 BSF PORTC,5
+Warning[203]: Found opcode in column 1. (BSF)
+010B   1707           00078 BSF PORTC,6
+                      00079  DTR 'L'
+Warning[203]: Found opcode in column 1. (MOVLW)
+010C   304C               M MOVLW 'L'
+Warning[203]: Found opcode in column 1. (MOVWF)
+010D   0088               M MOVWF PORTD
+Warning[203]: Found opcode in column 1. (BSF)
+010E   1407               M BSF PORTC,0
+Warning[203]: Found opcode in column 1. (BCF)
+010F   1087               M BCF PORTC,1
+Warning[203]: Found opcode in column 1. (BSF)
+0110   1507               M BSF PORTC,2
+Warning[206]: Found call to macro in column 1. (DELAY)
+                          M DELAY 0x80
+Warning[205]: Found directive in column 1. (LOCAL)
+  0000                    M LOCAL LABL
+Warning[205]: Found directive in column 1. (BANKSEL)
+0111   1683 1303          M BANKSEL OPTION_REG
+Warning[203]: Found opcode in column 1. (MOVLW)
+0113   3080               M MOVLW 0x80
+Warning[203]: Found opcode in column 1. (MOVWF)
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0114   0081               M MOVWF OPTION_REG
+Warning[205]: Found directive in column 1. (BANKSEL)
+0115   1283 1303          M BANKSEL TMR0
+Warning[203]: Found opcode in column 1. (CLRF)
+0117   0181               M CLRF TMR0
+Warning[203]: Found opcode in column 1. (BCF)
+0118   110B               M BCF INTCON,T0IF
+0119                      M LABL:
+Warning[203]: Found opcode in column 1. (BTFSS)
+0119   1D0B               M BTFSS INTCON,T0IF
+Warning[203]: Found opcode in column 1. (GOTO)
+011A   2???               M GOTO LABL
+Warning[203]: Found opcode in column 1. (BCF)
+011B   1107               M BCF PORTC,2
+                      00080  DTR 'O'
+Warning[203]: Found opcode in column 1. (MOVLW)
+011C   304F               M MOVLW 'O'
+Warning[203]: Found opcode in column 1. (MOVWF)
+MPASM  5.51                      UNTITLED.ASM   12-7-2022  9:00:57         PAGE 13
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+011D   0088               M MOVWF PORTD
+Warning[203]: Found opcode in column 1. (BSF)
+011E   1407               M BSF PORTC,0
+Warning[203]: Found opcode in column 1. (BCF)
+011F   1087               M BCF PORTC,1
+Warning[203]: Found opcode in column 1. (BSF)
+0120   1507               M BSF PORTC,2
+Warning[206]: Found call to macro in column 1. (DELAY)
+                          M DELAY 0x80
+Warning[205]: Found directive in column 1. (LOCAL)
+  0000                    M LOCAL LABL
+Warning[205]: Found directive in column 1. (BANKSEL)
+0121   1683 1303          M BANKSEL OPTION_REG
+Warning[203]: Found opcode in column 1. (MOVLW)
+0123   3080               M MOVLW 0x80
+Warning[203]: Found opcode in column 1. (MOVWF)
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0124   0081               M MOVWF OPTION_REG
+Warning[205]: Found directive in column 1. (BANKSEL)
+0125   1283 1303          M BANKSEL TMR0
+Warning[203]: Found opcode in column 1. (CLRF)
+0127   0181               M CLRF TMR0
+Warning[203]: Found opcode in column 1. (BCF)
+0128   110B               M BCF INTCON,T0IF
+0129                      M LABL:
+Warning[203]: Found opcode in column 1. (BTFSS)
+0129   1D0B               M BTFSS INTCON,T0IF
+Warning[203]: Found opcode in column 1. (GOTO)
+012A   2???               M GOTO LABL
+Warning[203]: Found opcode in column 1. (BCF)
+012B   1107               M BCF PORTC,2
+                      00081  DTR 'W'
+Warning[203]: Found opcode in column 1. (MOVLW)
+012C   3057               M MOVLW 'W'
+Warning[203]: Found opcode in column 1. (MOVWF)
+012D   0088               M MOVWF PORTD
+Warning[203]: Found opcode in column 1. (BSF)
+012E   1407               M BSF PORTC,0
+Warning[203]: Found opcode in column 1. (BCF)
+012F   1087               M BCF PORTC,1
+Warning[203]: Found opcode in column 1. (BSF)
+0130   1507               M BSF PORTC,2
+Warning[206]: Found call to macro in column 1. (DELAY)
+                          M DELAY 0x80
+Warning[205]: Found directive in column 1. (LOCAL)
+  0000                    M LOCAL LABL
+Warning[205]: Found directive in column 1. (BANKSEL)
+0131   1683 1303          M BANKSEL OPTION_REG
+Warning[203]: Found opcode in column 1. (MOVLW)
+0133   3080               M MOVLW 0x80
+Warning[203]: Found opcode in column 1. (MOVWF)
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0134   0081               M MOVWF OPTION_REG
+MPASM  5.51                      UNTITLED.ASM   12-7-2022  9:00:57         PAGE 14
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+Warning[205]: Found directive in column 1. (BANKSEL)
+0135   1283 1303          M BANKSEL TMR0
+Warning[203]: Found opcode in column 1. (CLRF)
+0137   0181               M CLRF TMR0
+Warning[203]: Found opcode in column 1. (BCF)
+0138   110B               M BCF INTCON,T0IF
+0139                      M LABL:
+Warning[203]: Found opcode in column 1. (BTFSS)
+0139   1D0B               M BTFSS INTCON,T0IF
+Warning[203]: Found opcode in column 1. (GOTO)
+013A   2???               M GOTO LABL
+Warning[203]: Found opcode in column 1. (BCF)
+013B   1107               M BCF PORTC,2
+                      00082  DTR ' '
+Warning[203]: Found opcode in column 1. (MOVLW)
+013C   3020               M MOVLW ' '
+Warning[203]: Found opcode in column 1. (MOVWF)
+013D   0088               M MOVWF PORTD
+Warning[203]: Found opcode in column 1. (BSF)
+013E   1407               M BSF PORTC,0
+Warning[203]: Found opcode in column 1. (BCF)
+013F   1087               M BCF PORTC,1
+Warning[203]: Found opcode in column 1. (BSF)
+0140   1507               M BSF PORTC,2
+Warning[206]: Found call to macro in column 1. (DELAY)
+                          M DELAY 0x80
+Warning[205]: Found directive in column 1. (LOCAL)
+  0000                    M LOCAL LABL
+Warning[205]: Found directive in column 1. (BANKSEL)
+0141   1683 1303          M BANKSEL OPTION_REG
+Warning[203]: Found opcode in column 1. (MOVLW)
+0143   3080               M MOVLW 0x80
+Warning[203]: Found opcode in column 1. (MOVWF)
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0144   0081               M MOVWF OPTION_REG
+Warning[205]: Found directive in column 1. (BANKSEL)
+0145   1283 1303          M BANKSEL TMR0
+Warning[203]: Found opcode in column 1. (CLRF)
+0147   0181               M CLRF TMR0
+Warning[203]: Found opcode in column 1. (BCF)
+0148   110B               M BCF INTCON,T0IF
+0149                      M LABL:
+Warning[203]: Found opcode in column 1. (BTFSS)
+0149   1D0B               M BTFSS INTCON,T0IF
+Warning[203]: Found opcode in column 1. (GOTO)
+014A   2???               M GOTO LABL
+Warning[203]: Found opcode in column 1. (BCF)
+014B   1107               M BCF PORTC,2
+                      00083  DTR 'L'
+Warning[203]: Found opcode in column 1. (MOVLW)
+014C   304C               M MOVLW 'L'
+Warning[203]: Found opcode in column 1. (MOVWF)
+014D   0088               M MOVWF PORTD
+MPASM  5.51                      UNTITLED.ASM   12-7-2022  9:00:57         PAGE 15
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+Warning[203]: Found opcode in column 1. (BSF)
+014E   1407               M BSF PORTC,0
+Warning[203]: Found opcode in column 1. (BCF)
+014F   1087               M BCF PORTC,1
+Warning[203]: Found opcode in column 1. (BSF)
+0150   1507               M BSF PORTC,2
+Warning[206]: Found call to macro in column 1. (DELAY)
+                          M DELAY 0x80
+Warning[205]: Found directive in column 1. (LOCAL)
+  0000                    M LOCAL LABL
+Warning[205]: Found directive in column 1. (BANKSEL)
+0151   1683 1303          M BANKSEL OPTION_REG
+Warning[203]: Found opcode in column 1. (MOVLW)
+0153   3080               M MOVLW 0x80
+Warning[203]: Found opcode in column 1. (MOVWF)
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0154   0081               M MOVWF OPTION_REG
+Warning[205]: Found directive in column 1. (BANKSEL)
+0155   1283 1303          M BANKSEL TMR0
+Warning[203]: Found opcode in column 1. (CLRF)
+0157   0181               M CLRF TMR0
+Warning[203]: Found opcode in column 1. (BCF)
+0158   110B               M BCF INTCON,T0IF
+0159                      M LABL:
+Warning[203]: Found opcode in column 1. (BTFSS)
+0159   1D0B               M BTFSS INTCON,T0IF
+Warning[203]: Found opcode in column 1. (GOTO)
+015A   2???               M GOTO LABL
+Warning[203]: Found opcode in column 1. (BCF)
+015B   1107               M BCF PORTC,2
+                      00084  DTR 'I'
+Warning[203]: Found opcode in column 1. (MOVLW)
+015C   3049               M MOVLW 'I'
+Warning[203]: Found opcode in column 1. (MOVWF)
+015D   0088               M MOVWF PORTD
+Warning[203]: Found opcode in column 1. (BSF)
+015E   1407               M BSF PORTC,0
+Warning[203]: Found opcode in column 1. (BCF)
+015F   1087               M BCF PORTC,1
+Warning[203]: Found opcode in column 1. (BSF)
+0160   1507               M BSF PORTC,2
+Warning[206]: Found call to macro in column 1. (DELAY)
+                          M DELAY 0x80
+Warning[205]: Found directive in column 1. (LOCAL)
+  0000                    M LOCAL LABL
+Warning[205]: Found directive in column 1. (BANKSEL)
+0161   1683 1303          M BANKSEL OPTION_REG
+Warning[203]: Found opcode in column 1. (MOVLW)
+0163   3080               M MOVLW 0x80
+Warning[203]: Found opcode in column 1. (MOVWF)
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0164   0081               M MOVWF OPTION_REG
+Warning[205]: Found directive in column 1. (BANKSEL)
+MPASM  5.51                      UNTITLED.ASM   12-7-2022  9:00:57         PAGE 16
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0165   1283 1303          M BANKSEL TMR0
+Warning[203]: Found opcode in column 1. (CLRF)
+0167   0181               M CLRF TMR0
+Warning[203]: Found opcode in column 1. (BCF)
+0168   110B               M BCF INTCON,T0IF
+0169                      M LABL:
+Warning[203]: Found opcode in column 1. (BTFSS)
+0169   1D0B               M BTFSS INTCON,T0IF
+Warning[203]: Found opcode in column 1. (GOTO)
+016A   2???               M GOTO LABL
+Warning[203]: Found opcode in column 1. (BCF)
+016B   1107               M BCF PORTC,2
+                      00085  DTR 'G'
+Warning[203]: Found opcode in column 1. (MOVLW)
+016C   3047               M MOVLW 'G'
+Warning[203]: Found opcode in column 1. (MOVWF)
+016D   0088               M MOVWF PORTD
+Warning[203]: Found opcode in column 1. (BSF)
+016E   1407               M BSF PORTC,0
+Warning[203]: Found opcode in column 1. (BCF)
+016F   1087               M BCF PORTC,1
+Warning[203]: Found opcode in column 1. (BSF)
+0170   1507               M BSF PORTC,2
+Warning[206]: Found call to macro in column 1. (DELAY)
+                          M DELAY 0x80
+Warning[205]: Found directive in column 1. (LOCAL)
+  0000                    M LOCAL LABL
+Warning[205]: Found directive in column 1. (BANKSEL)
+0171   1683 1303          M BANKSEL OPTION_REG
+Warning[203]: Found opcode in column 1. (MOVLW)
+0173   3080               M MOVLW 0x80
+Warning[203]: Found opcode in column 1. (MOVWF)
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0174   0081               M MOVWF OPTION_REG
+Warning[205]: Found directive in column 1. (BANKSEL)
+0175   1283 1303          M BANKSEL TMR0
+Warning[203]: Found opcode in column 1. (CLRF)
+0177   0181               M CLRF TMR0
+Warning[203]: Found opcode in column 1. (BCF)
+0178   110B               M BCF INTCON,T0IF
+0179                      M LABL:
+Warning[203]: Found opcode in column 1. (BTFSS)
+0179   1D0B               M BTFSS INTCON,T0IF
+Warning[203]: Found opcode in column 1. (GOTO)
+017A   2???               M GOTO LABL
+Warning[203]: Found opcode in column 1. (BCF)
+017B   1107               M BCF PORTC,2
+                      00086  DTR 'H'
+Warning[203]: Found opcode in column 1. (MOVLW)
+017C   3048               M MOVLW 'H'
+Warning[203]: Found opcode in column 1. (MOVWF)
+017D   0088               M MOVWF PORTD
+Warning[203]: Found opcode in column 1. (BSF)
+MPASM  5.51                      UNTITLED.ASM   12-7-2022  9:00:57         PAGE 17
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+017E   1407               M BSF PORTC,0
+Warning[203]: Found opcode in column 1. (BCF)
+017F   1087               M BCF PORTC,1
+Warning[203]: Found opcode in column 1. (BSF)
+0180   1507               M BSF PORTC,2
+Warning[206]: Found call to macro in column 1. (DELAY)
+                          M DELAY 0x80
+Warning[205]: Found directive in column 1. (LOCAL)
+  0000                    M LOCAL LABL
+Warning[205]: Found directive in column 1. (BANKSEL)
+0181   1683 1303          M BANKSEL OPTION_REG
+Warning[203]: Found opcode in column 1. (MOVLW)
+0183   3080               M MOVLW 0x80
+Warning[203]: Found opcode in column 1. (MOVWF)
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0184   0081               M MOVWF OPTION_REG
+Warning[205]: Found directive in column 1. (BANKSEL)
+0185   1283 1303          M BANKSEL TMR0
+Warning[203]: Found opcode in column 1. (CLRF)
+0187   0181               M CLRF TMR0
+Warning[203]: Found opcode in column 1. (BCF)
+0188   110B               M BCF INTCON,T0IF
+0189                      M LABL:
+Warning[203]: Found opcode in column 1. (BTFSS)
+0189   1D0B               M BTFSS INTCON,T0IF
+Warning[203]: Found opcode in column 1. (GOTO)
+018A   2???               M GOTO LABL
+Warning[203]: Found opcode in column 1. (BCF)
+018B   1107               M BCF PORTC,2
+                      00087  DTR 'T'
+Warning[203]: Found opcode in column 1. (MOVLW)
+018C   3054               M MOVLW 'T'
+Warning[203]: Found opcode in column 1. (MOVWF)
+018D   0088               M MOVWF PORTD
+Warning[203]: Found opcode in column 1. (BSF)
+018E   1407               M BSF PORTC,0
+Warning[203]: Found opcode in column 1. (BCF)
+018F   1087               M BCF PORTC,1
+Warning[203]: Found opcode in column 1. (BSF)
+0190   1507               M BSF PORTC,2
+Warning[206]: Found call to macro in column 1. (DELAY)
+                          M DELAY 0x80
+Warning[205]: Found directive in column 1. (LOCAL)
+  0000                    M LOCAL LABL
+Warning[205]: Found directive in column 1. (BANKSEL)
+0191   1683 1303          M BANKSEL OPTION_REG
+Warning[203]: Found opcode in column 1. (MOVLW)
+0193   3080               M MOVLW 0x80
+Warning[203]: Found opcode in column 1. (MOVWF)
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0194   0081               M MOVWF OPTION_REG
+Warning[205]: Found directive in column 1. (BANKSEL)
+0195   1283 1303          M BANKSEL TMR0
+MPASM  5.51                      UNTITLED.ASM   12-7-2022  9:00:57         PAGE 18
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+Warning[203]: Found opcode in column 1. (CLRF)
+0197   0181               M CLRF TMR0
+Warning[203]: Found opcode in column 1. (BCF)
+0198   110B               M BCF INTCON,T0IF
+0199                      M LABL:
+Warning[203]: Found opcode in column 1. (BTFSS)
+0199   1D0B               M BTFSS INTCON,T0IF
+Warning[203]: Found opcode in column 1. (GOTO)
+019A   2???               M GOTO LABL
+Warning[203]: Found opcode in column 1. (BCF)
+019B   1107               M BCF PORTC,2
+                      00088 
+Warning[206]: Found call to macro in column 1. (DELAY)
+                      00089 DELAY 0X87
+Warning[205]: Found directive in column 1. (LOCAL)
+  0000                    M LOCAL LABL
+Warning[205]: Found directive in column 1. (BANKSEL)
+019C   1683 1303          M BANKSEL OPTION_REG
+Warning[203]: Found opcode in column 1. (MOVLW)
+019E   3087               M MOVLW 0X87
+Warning[203]: Found opcode in column 1. (MOVWF)
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+019F   0081               M MOVWF OPTION_REG
+Warning[205]: Found directive in column 1. (BANKSEL)
+01A0   1283 1303          M BANKSEL TMR0
+Warning[203]: Found opcode in column 1. (CLRF)
+01A2   0181               M CLRF TMR0
+Warning[203]: Found opcode in column 1. (BCF)
+01A3   110B               M BCF INTCON,T0IF
+01A4                      M LABL:
+Warning[203]: Found opcode in column 1. (BTFSS)
+01A4   1D0B               M BTFSS INTCON,T0IF
+Warning[203]: Found opcode in column 1. (GOTO)
+01A5   2???               M GOTO LABL
+Warning[203]: Found opcode in column 1. (GOTO)
+01A6   2???           00090 GOTO MAIN
+01A7                  00091 LABEL2
+Warning[206]: Found call to macro in column 1. (CMD)
+                      00092 CMD 0X01
+Warning[203]: Found opcode in column 1. (MOVLW)
+01A7   3001               M MOVLW 0X01
+Warning[203]: Found opcode in column 1. (MOVWF)
+01A8   0088               M MOVWF PORTD
+Warning[203]: Found opcode in column 1. (BCF)
+01A9   1007               M BCF PORTC,0
+Warning[203]: Found opcode in column 1. (BCF)
+01AA   1087               M BCF PORTC,1
+Warning[203]: Found opcode in column 1. (BSF)
+01AB   1507               M BSF PORTC,2
+Warning[206]: Found call to macro in column 1. (DELAY)
+                          M DELAY 0x80
+Warning[205]: Found directive in column 1. (LOCAL)
+  0000                    M LOCAL LABL
+MPASM  5.51                      UNTITLED.ASM   12-7-2022  9:00:57         PAGE 19
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+Warning[205]: Found directive in column 1. (BANKSEL)
+01AC   1683 1303          M BANKSEL OPTION_REG
+Warning[203]: Found opcode in column 1. (MOVLW)
+01AE   3080               M MOVLW 0x80
+Warning[203]: Found opcode in column 1. (MOVWF)
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+01AF   0081               M MOVWF OPTION_REG
+Warning[205]: Found directive in column 1. (BANKSEL)
+01B0   1283 1303          M BANKSEL TMR0
+Warning[203]: Found opcode in column 1. (CLRF)
+01B2   0181               M CLRF TMR0
+Warning[203]: Found opcode in column 1. (BCF)
+01B3   110B               M BCF INTCON,T0IF
+01B4                      M LABL:
+Warning[203]: Found opcode in column 1. (BTFSS)
+01B4   1D0B               M BTFSS INTCON,T0IF
+Warning[203]: Found opcode in column 1. (GOTO)
+01B5   2???               M GOTO LABL
+Warning[203]: Found opcode in column 1. (BCF)
+01B6   1107               M BCF PORTC,2
+Warning[203]: Found opcode in column 1. (CLRF)
+01B7   0187           00093 CLRF PORTC
+Warning[203]: Found opcode in column 1. (BSF)
+01B8   1687           00094 BSF PORTC,5
+Warning[203]: Found opcode in column 1. (BSF)
+01B9   1707           00095 BSF PORTC,6
+                      00096  DTR 'N'
+Warning[203]: Found opcode in column 1. (MOVLW)
+01BA   304E               M MOVLW 'N'
+Warning[203]: Found opcode in column 1. (MOVWF)
+01BB   0088               M MOVWF PORTD
+Warning[203]: Found opcode in column 1. (BSF)
+01BC   1407               M BSF PORTC,0
+Warning[203]: Found opcode in column 1. (BCF)
+01BD   1087               M BCF PORTC,1
+Warning[203]: Found opcode in column 1. (BSF)
+01BE   1507               M BSF PORTC,2
+Warning[206]: Found call to macro in column 1. (DELAY)
+                          M DELAY 0x80
+Warning[205]: Found directive in column 1. (LOCAL)
+  0000                    M LOCAL LABL
+Warning[205]: Found directive in column 1. (BANKSEL)
+01BF   1683 1303          M BANKSEL OPTION_REG
+Warning[203]: Found opcode in column 1. (MOVLW)
+01C1   3080               M MOVLW 0x80
+Warning[203]: Found opcode in column 1. (MOVWF)
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+01C2   0081               M MOVWF OPTION_REG
+Warning[205]: Found directive in column 1. (BANKSEL)
+01C3   1283 1303          M BANKSEL TMR0
+Warning[203]: Found opcode in column 1. (CLRF)
+01C5   0181               M CLRF TMR0
+Warning[203]: Found opcode in column 1. (BCF)
+MPASM  5.51                      UNTITLED.ASM   12-7-2022  9:00:57         PAGE 20
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+01C6   110B               M BCF INTCON,T0IF
+01C7                      M LABL:
+Warning[203]: Found opcode in column 1. (BTFSS)
+01C7   1D0B               M BTFSS INTCON,T0IF
+Warning[203]: Found opcode in column 1. (GOTO)
+01C8   2???               M GOTO LABL
+Warning[203]: Found opcode in column 1. (BCF)
+01C9   1107               M BCF PORTC,2
+                      00097  DTR 'O'
+Warning[203]: Found opcode in column 1. (MOVLW)
+01CA   304F               M MOVLW 'O'
+Warning[203]: Found opcode in column 1. (MOVWF)
+01CB   0088               M MOVWF PORTD
+Warning[203]: Found opcode in column 1. (BSF)
+01CC   1407               M BSF PORTC,0
+Warning[203]: Found opcode in column 1. (BCF)
+01CD   1087               M BCF PORTC,1
+Warning[203]: Found opcode in column 1. (BSF)
+01CE   1507               M BSF PORTC,2
+Warning[206]: Found call to macro in column 1. (DELAY)
+                          M DELAY 0x80
+Warning[205]: Found directive in column 1. (LOCAL)
+  0000                    M LOCAL LABL
+Warning[205]: Found directive in column 1. (BANKSEL)
+01CF   1683 1303          M BANKSEL OPTION_REG
+Warning[203]: Found opcode in column 1. (MOVLW)
+01D1   3080               M MOVLW 0x80
+Warning[203]: Found opcode in column 1. (MOVWF)
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+01D2   0081               M MOVWF OPTION_REG
+Warning[205]: Found directive in column 1. (BANKSEL)
+01D3   1283 1303          M BANKSEL TMR0
+Warning[203]: Found opcode in column 1. (CLRF)
+01D5   0181               M CLRF TMR0
+Warning[203]: Found opcode in column 1. (BCF)
+01D6   110B               M BCF INTCON,T0IF
+01D7                      M LABL:
+Warning[203]: Found opcode in column 1. (BTFSS)
+01D7   1D0B               M BTFSS INTCON,T0IF
+Warning[203]: Found opcode in column 1. (GOTO)
+01D8   2???               M GOTO LABL
+Warning[203]: Found opcode in column 1. (BCF)
+01D9   1107               M BCF PORTC,2
+                      00098  DTR 'R'
+Warning[203]: Found opcode in column 1. (MOVLW)
+01DA   3052               M MOVLW 'R'
+Warning[203]: Found opcode in column 1. (MOVWF)
+01DB   0088               M MOVWF PORTD
+Warning[203]: Found opcode in column 1. (BSF)
+01DC   1407               M BSF PORTC,0
+Warning[203]: Found opcode in column 1. (BCF)
+01DD   1087               M BCF PORTC,1
+Warning[203]: Found opcode in column 1. (BSF)
+MPASM  5.51                      UNTITLED.ASM   12-7-2022  9:00:57         PAGE 21
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+01DE   1507               M BSF PORTC,2
+Warning[206]: Found call to macro in column 1. (DELAY)
+                          M DELAY 0x80
+Warning[205]: Found directive in column 1. (LOCAL)
+  0000                    M LOCAL LABL
+Warning[205]: Found directive in column 1. (BANKSEL)
+01DF   1683 1303          M BANKSEL OPTION_REG
+Warning[203]: Found opcode in column 1. (MOVLW)
+01E1   3080               M MOVLW 0x80
+Warning[203]: Found opcode in column 1. (MOVWF)
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+01E2   0081               M MOVWF OPTION_REG
+Warning[205]: Found directive in column 1. (BANKSEL)
+01E3   1283 1303          M BANKSEL TMR0
+Warning[203]: Found opcode in column 1. (CLRF)
+01E5   0181               M CLRF TMR0
+Warning[203]: Found opcode in column 1. (BCF)
+01E6   110B               M BCF INTCON,T0IF
+01E7                      M LABL:
+Warning[203]: Found opcode in column 1. (BTFSS)
+01E7   1D0B               M BTFSS INTCON,T0IF
+Warning[203]: Found opcode in column 1. (GOTO)
+01E8   2???               M GOTO LABL
+Warning[203]: Found opcode in column 1. (BCF)
+01E9   1107               M BCF PORTC,2
+                      00099  DTR 'M'
+Warning[203]: Found opcode in column 1. (MOVLW)
+01EA   304D               M MOVLW 'M'
+Warning[203]: Found opcode in column 1. (MOVWF)
+01EB   0088               M MOVWF PORTD
+Warning[203]: Found opcode in column 1. (BSF)
+01EC   1407               M BSF PORTC,0
+Warning[203]: Found opcode in column 1. (BCF)
+01ED   1087               M BCF PORTC,1
+Warning[203]: Found opcode in column 1. (BSF)
+01EE   1507               M BSF PORTC,2
+Warning[206]: Found call to macro in column 1. (DELAY)
+                          M DELAY 0x80
+Warning[205]: Found directive in column 1. (LOCAL)
+  0000                    M LOCAL LABL
+Warning[205]: Found directive in column 1. (BANKSEL)
+01EF   1683 1303          M BANKSEL OPTION_REG
+Warning[203]: Found opcode in column 1. (MOVLW)
+01F1   3080               M MOVLW 0x80
+Warning[203]: Found opcode in column 1. (MOVWF)
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+01F2   0081               M MOVWF OPTION_REG
+Warning[205]: Found directive in column 1. (BANKSEL)
+01F3   1283 1303          M BANKSEL TMR0
+Warning[203]: Found opcode in column 1. (CLRF)
+01F5   0181               M CLRF TMR0
+Warning[203]: Found opcode in column 1. (BCF)
+01F6   110B               M BCF INTCON,T0IF
+MPASM  5.51                      UNTITLED.ASM   12-7-2022  9:00:57         PAGE 22
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+01F7                      M LABL:
+Warning[203]: Found opcode in column 1. (BTFSS)
+01F7   1D0B               M BTFSS INTCON,T0IF
+Warning[203]: Found opcode in column 1. (GOTO)
+01F8   2???               M GOTO LABL
+Warning[203]: Found opcode in column 1. (BCF)
+01F9   1107               M BCF PORTC,2
+                      00100  DTR 'A'
+Warning[203]: Found opcode in column 1. (MOVLW)
+01FA   3041               M MOVLW 'A'
+Warning[203]: Found opcode in column 1. (MOVWF)
+01FB   0088               M MOVWF PORTD
+Warning[203]: Found opcode in column 1. (BSF)
+01FC   1407               M BSF PORTC,0
+Warning[203]: Found opcode in column 1. (BCF)
+01FD   1087               M BCF PORTC,1
+Warning[203]: Found opcode in column 1. (BSF)
+01FE   1507               M BSF PORTC,2
+Warning[206]: Found call to macro in column 1. (DELAY)
+                          M DELAY 0x80
+Warning[205]: Found directive in column 1. (LOCAL)
+  0000                    M LOCAL LABL
+Warning[205]: Found directive in column 1. (BANKSEL)
+01FF   1683 1303          M BANKSEL OPTION_REG
+Warning[203]: Found opcode in column 1. (MOVLW)
+0201   3080               M MOVLW 0x80
+Warning[203]: Found opcode in column 1. (MOVWF)
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0202   0081               M MOVWF OPTION_REG
+Warning[205]: Found directive in column 1. (BANKSEL)
+0203   1283 1303          M BANKSEL TMR0
+Warning[203]: Found opcode in column 1. (CLRF)
+0205   0181               M CLRF TMR0
+Warning[203]: Found opcode in column 1. (BCF)
+0206   110B               M BCF INTCON,T0IF
+0207                      M LABL:
+Warning[203]: Found opcode in column 1. (BTFSS)
+0207   1D0B               M BTFSS INTCON,T0IF
+Warning[203]: Found opcode in column 1. (GOTO)
+0208   2???               M GOTO LABL
+Warning[203]: Found opcode in column 1. (BCF)
+0209   1107               M BCF PORTC,2
+                      00101  DTR 'L'
+Warning[203]: Found opcode in column 1. (MOVLW)
+020A   304C               M MOVLW 'L'
+Warning[203]: Found opcode in column 1. (MOVWF)
+020B   0088               M MOVWF PORTD
+Warning[203]: Found opcode in column 1. (BSF)
+020C   1407               M BSF PORTC,0
+Warning[203]: Found opcode in column 1. (BCF)
+020D   1087               M BCF PORTC,1
+Warning[203]: Found opcode in column 1. (BSF)
+020E   1507               M BSF PORTC,2
+MPASM  5.51                      UNTITLED.ASM   12-7-2022  9:00:57         PAGE 23
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+Warning[206]: Found call to macro in column 1. (DELAY)
+                          M DELAY 0x80
+Warning[205]: Found directive in column 1. (LOCAL)
+  0000                    M LOCAL LABL
+Warning[205]: Found directive in column 1. (BANKSEL)
+020F   1683 1303          M BANKSEL OPTION_REG
+Warning[203]: Found opcode in column 1. (MOVLW)
+0211   3080               M MOVLW 0x80
+Warning[203]: Found opcode in column 1. (MOVWF)
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0212   0081               M MOVWF OPTION_REG
+Warning[205]: Found directive in column 1. (BANKSEL)
+0213   1283 1303          M BANKSEL TMR0
+Warning[203]: Found opcode in column 1. (CLRF)
+0215   0181               M CLRF TMR0
+Warning[203]: Found opcode in column 1. (BCF)
+0216   110B               M BCF INTCON,T0IF
+0217                      M LABL:
+Warning[203]: Found opcode in column 1. (BTFSS)
+0217   1D0B               M BTFSS INTCON,T0IF
+Warning[203]: Found opcode in column 1. (GOTO)
+0218   2???               M GOTO LABL
+Warning[203]: Found opcode in column 1. (BCF)
+0219   1107               M BCF PORTC,2
+                      00102  DTR ' '
+Warning[203]: Found opcode in column 1. (MOVLW)
+021A   3020               M MOVLW ' '
+Warning[203]: Found opcode in column 1. (MOVWF)
+021B   0088               M MOVWF PORTD
+Warning[203]: Found opcode in column 1. (BSF)
+021C   1407               M BSF PORTC,0
+Warning[203]: Found opcode in column 1. (BCF)
+021D   1087               M BCF PORTC,1
+Warning[203]: Found opcode in column 1. (BSF)
+021E   1507               M BSF PORTC,2
+Warning[206]: Found call to macro in column 1. (DELAY)
+                          M DELAY 0x80
+Warning[205]: Found directive in column 1. (LOCAL)
+  0000                    M LOCAL LABL
+Warning[205]: Found directive in column 1. (BANKSEL)
+021F   1683 1303          M BANKSEL OPTION_REG
+Warning[203]: Found opcode in column 1. (MOVLW)
+0221   3080               M MOVLW 0x80
+Warning[203]: Found opcode in column 1. (MOVWF)
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0222   0081               M MOVWF OPTION_REG
+Warning[205]: Found directive in column 1. (BANKSEL)
+0223   1283 1303          M BANKSEL TMR0
+Warning[203]: Found opcode in column 1. (CLRF)
+0225   0181               M CLRF TMR0
+Warning[203]: Found opcode in column 1. (BCF)
+0226   110B               M BCF INTCON,T0IF
+0227                      M LABL:
+MPASM  5.51                      UNTITLED.ASM   12-7-2022  9:00:57         PAGE 24
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+Warning[203]: Found opcode in column 1. (BTFSS)
+0227   1D0B               M BTFSS INTCON,T0IF
+Warning[203]: Found opcode in column 1. (GOTO)
+0228   2???               M GOTO LABL
+Warning[203]: Found opcode in column 1. (BCF)
+0229   1107               M BCF PORTC,2
+                      00103  DTR 'L'
+Warning[203]: Found opcode in column 1. (MOVLW)
+022A   304C               M MOVLW 'L'
+Warning[203]: Found opcode in column 1. (MOVWF)
+022B   0088               M MOVWF PORTD
+Warning[203]: Found opcode in column 1. (BSF)
+022C   1407               M BSF PORTC,0
+Warning[203]: Found opcode in column 1. (BCF)
+022D   1087               M BCF PORTC,1
+Warning[203]: Found opcode in column 1. (BSF)
+022E   1507               M BSF PORTC,2
+Warning[206]: Found call to macro in column 1. (DELAY)
+                          M DELAY 0x80
+Warning[205]: Found directive in column 1. (LOCAL)
+  0000                    M LOCAL LABL
+Warning[205]: Found directive in column 1. (BANKSEL)
+022F   1683 1303          M BANKSEL OPTION_REG
+Warning[203]: Found opcode in column 1. (MOVLW)
+0231   3080               M MOVLW 0x80
+Warning[203]: Found opcode in column 1. (MOVWF)
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0232   0081               M MOVWF OPTION_REG
+Warning[205]: Found directive in column 1. (BANKSEL)
+0233   1283 1303          M BANKSEL TMR0
+Warning[203]: Found opcode in column 1. (CLRF)
+0235   0181               M CLRF TMR0
+Warning[203]: Found opcode in column 1. (BCF)
+0236   110B               M BCF INTCON,T0IF
+0237                      M LABL:
+Warning[203]: Found opcode in column 1. (BTFSS)
+0237   1D0B               M BTFSS INTCON,T0IF
+Warning[203]: Found opcode in column 1. (GOTO)
+0238   2???               M GOTO LABL
+Warning[203]: Found opcode in column 1. (BCF)
+0239   1107               M BCF PORTC,2
+                      00104  DTR 'I'
+Warning[203]: Found opcode in column 1. (MOVLW)
+023A   3049               M MOVLW 'I'
+Warning[203]: Found opcode in column 1. (MOVWF)
+023B   0088               M MOVWF PORTD
+Warning[203]: Found opcode in column 1. (BSF)
+023C   1407               M BSF PORTC,0
+Warning[203]: Found opcode in column 1. (BCF)
+023D   1087               M BCF PORTC,1
+Warning[203]: Found opcode in column 1. (BSF)
+023E   1507               M BSF PORTC,2
+Warning[206]: Found call to macro in column 1. (DELAY)
+MPASM  5.51                      UNTITLED.ASM   12-7-2022  9:00:57         PAGE 25
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                          M DELAY 0x80
+Warning[205]: Found directive in column 1. (LOCAL)
+  0000                    M LOCAL LABL
+Warning[205]: Found directive in column 1. (BANKSEL)
+023F   1683 1303          M BANKSEL OPTION_REG
+Warning[203]: Found opcode in column 1. (MOVLW)
+0241   3080               M MOVLW 0x80
+Warning[203]: Found opcode in column 1. (MOVWF)
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0242   0081               M MOVWF OPTION_REG
+Warning[205]: Found directive in column 1. (BANKSEL)
+0243   1283 1303          M BANKSEL TMR0
+Warning[203]: Found opcode in column 1. (CLRF)
+0245   0181               M CLRF TMR0
+Warning[203]: Found opcode in column 1. (BCF)
+0246   110B               M BCF INTCON,T0IF
+0247                      M LABL:
+Warning[203]: Found opcode in column 1. (BTFSS)
+0247   1D0B               M BTFSS INTCON,T0IF
+Warning[203]: Found opcode in column 1. (GOTO)
+0248   2???               M GOTO LABL
+Warning[203]: Found opcode in column 1. (BCF)
+0249   1107               M BCF PORTC,2
+                      00105  DTR 'G'
+Warning[203]: Found opcode in column 1. (MOVLW)
+024A   3047               M MOVLW 'G'
+Warning[203]: Found opcode in column 1. (MOVWF)
+024B   0088               M MOVWF PORTD
+Warning[203]: Found opcode in column 1. (BSF)
+024C   1407               M BSF PORTC,0
+Warning[203]: Found opcode in column 1. (BCF)
+024D   1087               M BCF PORTC,1
+Warning[203]: Found opcode in column 1. (BSF)
+024E   1507               M BSF PORTC,2
+Warning[206]: Found call to macro in column 1. (DELAY)
+                          M DELAY 0x80
+Warning[205]: Found directive in column 1. (LOCAL)
+  0000                    M LOCAL LABL
+Warning[205]: Found directive in column 1. (BANKSEL)
+024F   1683 1303          M BANKSEL OPTION_REG
+Warning[203]: Found opcode in column 1. (MOVLW)
+0251   3080               M MOVLW 0x80
+Warning[203]: Found opcode in column 1. (MOVWF)
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0252   0081               M MOVWF OPTION_REG
+Warning[205]: Found directive in column 1. (BANKSEL)
+0253   1283 1303          M BANKSEL TMR0
+Warning[203]: Found opcode in column 1. (CLRF)
+0255   0181               M CLRF TMR0
+Warning[203]: Found opcode in column 1. (BCF)
+0256   110B               M BCF INTCON,T0IF
+0257                      M LABL:
+Warning[203]: Found opcode in column 1. (BTFSS)
+MPASM  5.51                      UNTITLED.ASM   12-7-2022  9:00:57         PAGE 26
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0257   1D0B               M BTFSS INTCON,T0IF
+Warning[203]: Found opcode in column 1. (GOTO)
+0258   2???               M GOTO LABL
+Warning[203]: Found opcode in column 1. (BCF)
+0259   1107               M BCF PORTC,2
+                      00106  DTR 'H'
+Warning[203]: Found opcode in column 1. (MOVLW)
+025A   3048               M MOVLW 'H'
+Warning[203]: Found opcode in column 1. (MOVWF)
+025B   0088               M MOVWF PORTD
+Warning[203]: Found opcode in column 1. (BSF)
+025C   1407               M BSF PORTC,0
+Warning[203]: Found opcode in column 1. (BCF)
+025D   1087               M BCF PORTC,1
+Warning[203]: Found opcode in column 1. (BSF)
+025E   1507               M BSF PORTC,2
+Warning[206]: Found call to macro in column 1. (DELAY)
+                          M DELAY 0x80
+Warning[205]: Found directive in column 1. (LOCAL)
+  0000                    M LOCAL LABL
+Warning[205]: Found directive in column 1. (BANKSEL)
+025F   1683 1303          M BANKSEL OPTION_REG
+Warning[203]: Found opcode in column 1. (MOVLW)
+0261   3080               M MOVLW 0x80
+Warning[203]: Found opcode in column 1. (MOVWF)
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0262   0081               M MOVWF OPTION_REG
+Warning[205]: Found directive in column 1. (BANKSEL)
+0263   1283 1303          M BANKSEL TMR0
+Warning[203]: Found opcode in column 1. (CLRF)
+0265   0181               M CLRF TMR0
+Warning[203]: Found opcode in column 1. (BCF)
+0266   110B               M BCF INTCON,T0IF
+0267                      M LABL:
+Warning[203]: Found opcode in column 1. (BTFSS)
+0267   1D0B               M BTFSS INTCON,T0IF
+Warning[203]: Found opcode in column 1. (GOTO)
+0268   2???               M GOTO LABL
+Warning[203]: Found opcode in column 1. (BCF)
+0269   1107               M BCF PORTC,2
+                      00107  DTR 'T'
+Warning[203]: Found opcode in column 1. (MOVLW)
+026A   3054               M MOVLW 'T'
+Warning[203]: Found opcode in column 1. (MOVWF)
+026B   0088               M MOVWF PORTD
+Warning[203]: Found opcode in column 1. (BSF)
+026C   1407               M BSF PORTC,0
+Warning[203]: Found opcode in column 1. (BCF)
+026D   1087               M BCF PORTC,1
+Warning[203]: Found opcode in column 1. (BSF)
+026E   1507               M BSF PORTC,2
+Warning[206]: Found call to macro in column 1. (DELAY)
+                          M DELAY 0x80
+MPASM  5.51                      UNTITLED.ASM   12-7-2022  9:00:57         PAGE 27
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+Warning[205]: Found directive in column 1. (LOCAL)
+  0000                    M LOCAL LABL
+Warning[205]: Found directive in column 1. (BANKSEL)
+026F   1683 1303          M BANKSEL OPTION_REG
+Warning[203]: Found opcode in column 1. (MOVLW)
+0271   3080               M MOVLW 0x80
+Warning[203]: Found opcode in column 1. (MOVWF)
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0272   0081               M MOVWF OPTION_REG
+Warning[205]: Found directive in column 1. (BANKSEL)
+0273   1283 1303          M BANKSEL TMR0
+Warning[203]: Found opcode in column 1. (CLRF)
+0275   0181               M CLRF TMR0
+Warning[203]: Found opcode in column 1. (BCF)
+0276   110B               M BCF INTCON,T0IF
+0277                      M LABL:
+Warning[203]: Found opcode in column 1. (BTFSS)
+0277   1D0B               M BTFSS INTCON,T0IF
+Warning[203]: Found opcode in column 1. (GOTO)
+0278   2???               M GOTO LABL
+Warning[203]: Found opcode in column 1. (BCF)
+0279   1107               M BCF PORTC,2
+Warning[206]: Found call to macro in column 1. (DELAY)
+                      00108 DELAY 0X87
+Warning[205]: Found directive in column 1. (LOCAL)
+  0000                    M LOCAL LABL
+Warning[205]: Found directive in column 1. (BANKSEL)
+027A   1683 1303          M BANKSEL OPTION_REG
+Warning[203]: Found opcode in column 1. (MOVLW)
+027C   3087               M MOVLW 0X87
+Warning[203]: Found opcode in column 1. (MOVWF)
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+027D   0081               M MOVWF OPTION_REG
+Warning[205]: Found directive in column 1. (BANKSEL)
+027E   1283 1303          M BANKSEL TMR0
+Warning[203]: Found opcode in column 1. (CLRF)
+0280   0181               M CLRF TMR0
+Warning[203]: Found opcode in column 1. (BCF)
+0281   110B               M BCF INTCON,T0IF
+0282                      M LABL:
+Warning[203]: Found opcode in column 1. (BTFSS)
+0282   1D0B               M BTFSS INTCON,T0IF
+Warning[203]: Found opcode in column 1. (GOTO)
+0283   2???               M GOTO LABL
+Warning[203]: Found opcode in column 1. (GOTO)
+0284   2???           00109 GOTO MAIN
+0285                  00110 LABEL3
+Warning[206]: Found call to macro in column 1. (CMD)
+                      00111 CMD 0X01
+Warning[203]: Found opcode in column 1. (MOVLW)
+0285   3001               M MOVLW 0X01
+Warning[203]: Found opcode in column 1. (MOVWF)
+0286   0088               M MOVWF PORTD
+MPASM  5.51                      UNTITLED.ASM   12-7-2022  9:00:57         PAGE 28
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+Warning[203]: Found opcode in column 1. (BCF)
+0287   1007               M BCF PORTC,0
+Warning[203]: Found opcode in column 1. (BCF)
+0288   1087               M BCF PORTC,1
+Warning[203]: Found opcode in column 1. (BSF)
+0289   1507               M BSF PORTC,2
+Warning[206]: Found call to macro in column 1. (DELAY)
+                          M DELAY 0x80
+Warning[205]: Found directive in column 1. (LOCAL)
+  0000                    M LOCAL LABL
+Warning[205]: Found directive in column 1. (BANKSEL)
+028A   1683 1303          M BANKSEL OPTION_REG
+Warning[203]: Found opcode in column 1. (MOVLW)
+028C   3080               M MOVLW 0x80
+Warning[203]: Found opcode in column 1. (MOVWF)
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+028D   0081               M MOVWF OPTION_REG
+Warning[205]: Found directive in column 1. (BANKSEL)
+028E   1283 1303          M BANKSEL TMR0
+Warning[203]: Found opcode in column 1. (CLRF)
+0290   0181               M CLRF TMR0
+Warning[203]: Found opcode in column 1. (BCF)
+0291   110B               M BCF INTCON,T0IF
+0292                      M LABL:
+Warning[203]: Found opcode in column 1. (BTFSS)
+0292   1D0B               M BTFSS INTCON,T0IF
+Warning[203]: Found opcode in column 1. (GOTO)
+0293   2???               M GOTO LABL
+Warning[203]: Found opcode in column 1. (BCF)
+0294   1107               M BCF PORTC,2
+Warning[203]: Found opcode in column 1. (CLRF)
+0295   0187           00112 CLRF PORTC
+Warning[203]: Found opcode in column 1. (BSF)
+0296   1707           00113 BSF PORTC,6
+                      00114  DTR 'H'
+Warning[203]: Found opcode in column 1. (MOVLW)
+0297   3048               M MOVLW 'H'
+Warning[203]: Found opcode in column 1. (MOVWF)
+0298   0088               M MOVWF PORTD
+Warning[203]: Found opcode in column 1. (BSF)
+0299   1407               M BSF PORTC,0
+Warning[203]: Found opcode in column 1. (BCF)
+029A   1087               M BCF PORTC,1
+Warning[203]: Found opcode in column 1. (BSF)
+029B   1507               M BSF PORTC,2
+Warning[206]: Found call to macro in column 1. (DELAY)
+                          M DELAY 0x80
+Warning[205]: Found directive in column 1. (LOCAL)
+  0000                    M LOCAL LABL
+Warning[205]: Found directive in column 1. (BANKSEL)
+029C   1683 1303          M BANKSEL OPTION_REG
+Warning[203]: Found opcode in column 1. (MOVLW)
+029E   3080               M MOVLW 0x80
+MPASM  5.51                      UNTITLED.ASM   12-7-2022  9:00:57         PAGE 29
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+Warning[203]: Found opcode in column 1. (MOVWF)
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+029F   0081               M MOVWF OPTION_REG
+Warning[205]: Found directive in column 1. (BANKSEL)
+02A0   1283 1303          M BANKSEL TMR0
+Warning[203]: Found opcode in column 1. (CLRF)
+02A2   0181               M CLRF TMR0
+Warning[203]: Found opcode in column 1. (BCF)
+02A3   110B               M BCF INTCON,T0IF
+02A4                      M LABL:
+Warning[203]: Found opcode in column 1. (BTFSS)
+02A4   1D0B               M BTFSS INTCON,T0IF
+Warning[203]: Found opcode in column 1. (GOTO)
+02A5   2???               M GOTO LABL
+Warning[203]: Found opcode in column 1. (BCF)
+02A6   1107               M BCF PORTC,2
+Warning[206]: Found call to macro in column 1. (DTR)
+                      00115 DTR 'I'
+Warning[203]: Found opcode in column 1. (MOVLW)
+02A7   3049               M MOVLW 'I'
+Warning[203]: Found opcode in column 1. (MOVWF)
+02A8   0088               M MOVWF PORTD
+Warning[203]: Found opcode in column 1. (BSF)
+02A9   1407               M BSF PORTC,0
+Warning[203]: Found opcode in column 1. (BCF)
+02AA   1087               M BCF PORTC,1
+Warning[203]: Found opcode in column 1. (BSF)
+02AB   1507               M BSF PORTC,2
+Warning[206]: Found call to macro in column 1. (DELAY)
+                          M DELAY 0x80
+Warning[205]: Found directive in column 1. (LOCAL)
+  0000                    M LOCAL LABL
+Warning[205]: Found directive in column 1. (BANKSEL)
+02AC   1683 1303          M BANKSEL OPTION_REG
+Warning[203]: Found opcode in column 1. (MOVLW)
+02AE   3080               M MOVLW 0x80
+Warning[203]: Found opcode in column 1. (MOVWF)
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+02AF   0081               M MOVWF OPTION_REG
+Warning[205]: Found directive in column 1. (BANKSEL)
+02B0   1283 1303          M BANKSEL TMR0
+Warning[203]: Found opcode in column 1. (CLRF)
+02B2   0181               M CLRF TMR0
+Warning[203]: Found opcode in column 1. (BCF)
+02B3   110B               M BCF INTCON,T0IF
+02B4                      M LABL:
+Warning[203]: Found opcode in column 1. (BTFSS)
+02B4   1D0B               M BTFSS INTCON,T0IF
+Warning[203]: Found opcode in column 1. (GOTO)
+02B5   2???               M GOTO LABL
+Warning[203]: Found opcode in column 1. (BCF)
+02B6   1107               M BCF PORTC,2
+                      00116  DTR 'G'
+MPASM  5.51                      UNTITLED.ASM   12-7-2022  9:00:57         PAGE 30
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+Warning[203]: Found opcode in column 1. (MOVLW)
+02B7   3047               M MOVLW 'G'
+Warning[203]: Found opcode in column 1. (MOVWF)
+02B8   0088               M MOVWF PORTD
+Warning[203]: Found opcode in column 1. (BSF)
+02B9   1407               M BSF PORTC,0
+Warning[203]: Found opcode in column 1. (BCF)
+02BA   1087               M BCF PORTC,1
+Warning[203]: Found opcode in column 1. (BSF)
+02BB   1507               M BSF PORTC,2
+Warning[206]: Found call to macro in column 1. (DELAY)
+                          M DELAY 0x80
+Warning[205]: Found directive in column 1. (LOCAL)
+  0000                    M LOCAL LABL
+Warning[205]: Found directive in column 1. (BANKSEL)
+02BC   1683 1303          M BANKSEL OPTION_REG
+Warning[203]: Found opcode in column 1. (MOVLW)
+02BE   3080               M MOVLW 0x80
+Warning[203]: Found opcode in column 1. (MOVWF)
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+02BF   0081               M MOVWF OPTION_REG
+Warning[205]: Found directive in column 1. (BANKSEL)
+02C0   1283 1303          M BANKSEL TMR0
+Warning[203]: Found opcode in column 1. (CLRF)
+02C2   0181               M CLRF TMR0
+Warning[203]: Found opcode in column 1. (BCF)
+02C3   110B               M BCF INTCON,T0IF
+02C4                      M LABL:
+Warning[203]: Found opcode in column 1. (BTFSS)
+02C4   1D0B               M BTFSS INTCON,T0IF
+Warning[203]: Found opcode in column 1. (GOTO)
+02C5   2???               M GOTO LABL
+Warning[203]: Found opcode in column 1. (BCF)
+02C6   1107               M BCF PORTC,2
+                      00117  DTR 'H'
+Warning[203]: Found opcode in column 1. (MOVLW)
+02C7   3048               M MOVLW 'H'
+Warning[203]: Found opcode in column 1. (MOVWF)
+02C8   0088               M MOVWF PORTD
+Warning[203]: Found opcode in column 1. (BSF)
+02C9   1407               M BSF PORTC,0
+Warning[203]: Found opcode in column 1. (BCF)
+02CA   1087               M BCF PORTC,1
+Warning[203]: Found opcode in column 1. (BSF)
+02CB   1507               M BSF PORTC,2
+Warning[206]: Found call to macro in column 1. (DELAY)
+                          M DELAY 0x80
+Warning[205]: Found directive in column 1. (LOCAL)
+  0000                    M LOCAL LABL
+Warning[205]: Found directive in column 1. (BANKSEL)
+02CC   1683 1303          M BANKSEL OPTION_REG
+Warning[203]: Found opcode in column 1. (MOVLW)
+02CE   3080               M MOVLW 0x80
+MPASM  5.51                      UNTITLED.ASM   12-7-2022  9:00:57         PAGE 31
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+Warning[203]: Found opcode in column 1. (MOVWF)
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+02CF   0081               M MOVWF OPTION_REG
+Warning[205]: Found directive in column 1. (BANKSEL)
+02D0   1283 1303          M BANKSEL TMR0
+Warning[203]: Found opcode in column 1. (CLRF)
+02D2   0181               M CLRF TMR0
+Warning[203]: Found opcode in column 1. (BCF)
+02D3   110B               M BCF INTCON,T0IF
+02D4                      M LABL:
+Warning[203]: Found opcode in column 1. (BTFSS)
+02D4   1D0B               M BTFSS INTCON,T0IF
+Warning[203]: Found opcode in column 1. (GOTO)
+02D5   2???               M GOTO LABL
+Warning[203]: Found opcode in column 1. (BCF)
+02D6   1107               M BCF PORTC,2
+                      00118  DTR ' '
+Warning[203]: Found opcode in column 1. (MOVLW)
+02D7   3020               M MOVLW ' '
+Warning[203]: Found opcode in column 1. (MOVWF)
+02D8   0088               M MOVWF PORTD
+Warning[203]: Found opcode in column 1. (BSF)
+02D9   1407               M BSF PORTC,0
+Warning[203]: Found opcode in column 1. (BCF)
+02DA   1087               M BCF PORTC,1
+Warning[203]: Found opcode in column 1. (BSF)
+02DB   1507               M BSF PORTC,2
+Warning[206]: Found call to macro in column 1. (DELAY)
+                          M DELAY 0x80
+Warning[205]: Found directive in column 1. (LOCAL)
+  0000                    M LOCAL LABL
+Warning[205]: Found directive in column 1. (BANKSEL)
+02DC   1683 1303          M BANKSEL OPTION_REG
+Warning[203]: Found opcode in column 1. (MOVLW)
+02DE   3080               M MOVLW 0x80
+Warning[203]: Found opcode in column 1. (MOVWF)
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+02DF   0081               M MOVWF OPTION_REG
+Warning[205]: Found directive in column 1. (BANKSEL)
+02E0   1283 1303          M BANKSEL TMR0
+Warning[203]: Found opcode in column 1. (CLRF)
+02E2   0181               M CLRF TMR0
+Warning[203]: Found opcode in column 1. (BCF)
+02E3   110B               M BCF INTCON,T0IF
+02E4                      M LABL:
+Warning[203]: Found opcode in column 1. (BTFSS)
+02E4   1D0B               M BTFSS INTCON,T0IF
+Warning[203]: Found opcode in column 1. (GOTO)
+02E5   2???               M GOTO LABL
+Warning[203]: Found opcode in column 1. (BCF)
+02E6   1107               M BCF PORTC,2
+                      00119  DTR 'L'
+Warning[203]: Found opcode in column 1. (MOVLW)
+MPASM  5.51                      UNTITLED.ASM   12-7-2022  9:00:57         PAGE 32
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+02E7   304C               M MOVLW 'L'
+Warning[203]: Found opcode in column 1. (MOVWF)
+02E8   0088               M MOVWF PORTD
+Warning[203]: Found opcode in column 1. (BSF)
+02E9   1407               M BSF PORTC,0
+Warning[203]: Found opcode in column 1. (BCF)
+02EA   1087               M BCF PORTC,1
+Warning[203]: Found opcode in column 1. (BSF)
+02EB   1507               M BSF PORTC,2
+Warning[206]: Found call to macro in column 1. (DELAY)
+                          M DELAY 0x80
+Warning[205]: Found directive in column 1. (LOCAL)
+  0000                    M LOCAL LABL
+Warning[205]: Found directive in column 1. (BANKSEL)
+02EC   1683 1303          M BANKSEL OPTION_REG
+Warning[203]: Found opcode in column 1. (MOVLW)
+02EE   3080               M MOVLW 0x80
+Warning[203]: Found opcode in column 1. (MOVWF)
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+02EF   0081               M MOVWF OPTION_REG
+Warning[205]: Found directive in column 1. (BANKSEL)
+02F0   1283 1303          M BANKSEL TMR0
+Warning[203]: Found opcode in column 1. (CLRF)
+02F2   0181               M CLRF TMR0
+Warning[203]: Found opcode in column 1. (BCF)
+02F3   110B               M BCF INTCON,T0IF
+02F4                      M LABL:
+Warning[203]: Found opcode in column 1. (BTFSS)
+02F4   1D0B               M BTFSS INTCON,T0IF
+Warning[203]: Found opcode in column 1. (GOTO)
+02F5   2???               M GOTO LABL
+Warning[203]: Found opcode in column 1. (BCF)
+02F6   1107               M BCF PORTC,2
+Warning[206]: Found call to macro in column 1. (DTR)
+                      00120 DTR 'I'
+Warning[203]: Found opcode in column 1. (MOVLW)
+02F7   3049               M MOVLW 'I'
+Warning[203]: Found opcode in column 1. (MOVWF)
+02F8   0088               M MOVWF PORTD
+Warning[203]: Found opcode in column 1. (BSF)
+02F9   1407               M BSF PORTC,0
+Warning[203]: Found opcode in column 1. (BCF)
+02FA   1087               M BCF PORTC,1
+Warning[203]: Found opcode in column 1. (BSF)
+02FB   1507               M BSF PORTC,2
+Warning[206]: Found call to macro in column 1. (DELAY)
+                          M DELAY 0x80
+Warning[205]: Found directive in column 1. (LOCAL)
+  0000                    M LOCAL LABL
+Warning[205]: Found directive in column 1. (BANKSEL)
+02FC   1683 1303          M BANKSEL OPTION_REG
+Warning[203]: Found opcode in column 1. (MOVLW)
+02FE   3080               M MOVLW 0x80
+MPASM  5.51                      UNTITLED.ASM   12-7-2022  9:00:57         PAGE 33
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+Warning[203]: Found opcode in column 1. (MOVWF)
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+02FF   0081               M MOVWF OPTION_REG
+Warning[205]: Found directive in column 1. (BANKSEL)
+0300   1283 1303          M BANKSEL TMR0
+Warning[203]: Found opcode in column 1. (CLRF)
+0302   0181               M CLRF TMR0
+Warning[203]: Found opcode in column 1. (BCF)
+0303   110B               M BCF INTCON,T0IF
+0304                      M LABL:
+Warning[203]: Found opcode in column 1. (BTFSS)
+0304   1D0B               M BTFSS INTCON,T0IF
+Warning[203]: Found opcode in column 1. (GOTO)
+0305   2???               M GOTO LABL
+Warning[203]: Found opcode in column 1. (BCF)
+0306   1107               M BCF PORTC,2
+                      00121  DTR 'G'
+Warning[203]: Found opcode in column 1. (MOVLW)
+0307   3047               M MOVLW 'G'
+Warning[203]: Found opcode in column 1. (MOVWF)
+0308   0088               M MOVWF PORTD
+Warning[203]: Found opcode in column 1. (BSF)
+0309   1407               M BSF PORTC,0
+Warning[203]: Found opcode in column 1. (BCF)
+030A   1087               M BCF PORTC,1
+Warning[203]: Found opcode in column 1. (BSF)
+030B   1507               M BSF PORTC,2
+Warning[206]: Found call to macro in column 1. (DELAY)
+                          M DELAY 0x80
+Warning[205]: Found directive in column 1. (LOCAL)
+  0000                    M LOCAL LABL
+Warning[205]: Found directive in column 1. (BANKSEL)
+030C   1683 1303          M BANKSEL OPTION_REG
+Warning[203]: Found opcode in column 1. (MOVLW)
+030E   3080               M MOVLW 0x80
+Warning[203]: Found opcode in column 1. (MOVWF)
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+030F   0081               M MOVWF OPTION_REG
+Warning[205]: Found directive in column 1. (BANKSEL)
+0310   1283 1303          M BANKSEL TMR0
+Warning[203]: Found opcode in column 1. (CLRF)
+0312   0181               M CLRF TMR0
+Warning[203]: Found opcode in column 1. (BCF)
+0313   110B               M BCF INTCON,T0IF
+0314                      M LABL:
+Warning[203]: Found opcode in column 1. (BTFSS)
+0314   1D0B               M BTFSS INTCON,T0IF
+Warning[203]: Found opcode in column 1. (GOTO)
+0315   2???               M GOTO LABL
+Warning[203]: Found opcode in column 1. (BCF)
+0316   1107               M BCF PORTC,2
+                      00122  DTR 'H'
+Warning[203]: Found opcode in column 1. (MOVLW)
+MPASM  5.51                      UNTITLED.ASM   12-7-2022  9:00:57         PAGE 34
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0317   3048               M MOVLW 'H'
+Warning[203]: Found opcode in column 1. (MOVWF)
+0318   0088               M MOVWF PORTD
+Warning[203]: Found opcode in column 1. (BSF)
+0319   1407               M BSF PORTC,0
+Warning[203]: Found opcode in column 1. (BCF)
+031A   1087               M BCF PORTC,1
+Warning[203]: Found opcode in column 1. (BSF)
+031B   1507               M BSF PORTC,2
+Warning[206]: Found call to macro in column 1. (DELAY)
+                          M DELAY 0x80
+Warning[205]: Found directive in column 1. (LOCAL)
+  0000                    M LOCAL LABL
+Warning[205]: Found directive in column 1. (BANKSEL)
+031C   1683 1303          M BANKSEL OPTION_REG
+Warning[203]: Found opcode in column 1. (MOVLW)
+031E   3080               M MOVLW 0x80
+Warning[203]: Found opcode in column 1. (MOVWF)
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+031F   0081               M MOVWF OPTION_REG
+Warning[205]: Found directive in column 1. (BANKSEL)
+0320   1283 1303          M BANKSEL TMR0
+Warning[203]: Found opcode in column 1. (CLRF)
+0322   0181               M CLRF TMR0
+Warning[203]: Found opcode in column 1. (BCF)
+0323   110B               M BCF INTCON,T0IF
+0324                      M LABL:
+Warning[203]: Found opcode in column 1. (BTFSS)
+0324   1D0B               M BTFSS INTCON,T0IF
+Warning[203]: Found opcode in column 1. (GOTO)
+0325   2???               M GOTO LABL
+Warning[203]: Found opcode in column 1. (BCF)
+0326   1107               M BCF PORTC,2
+                      00123  DTR 'T'
+Warning[203]: Found opcode in column 1. (MOVLW)
+0327   3054               M MOVLW 'T'
+Warning[203]: Found opcode in column 1. (MOVWF)
+0328   0088               M MOVWF PORTD
+Warning[203]: Found opcode in column 1. (BSF)
+0329   1407               M BSF PORTC,0
+Warning[203]: Found opcode in column 1. (BCF)
+032A   1087               M BCF PORTC,1
+Warning[203]: Found opcode in column 1. (BSF)
+032B   1507               M BSF PORTC,2
+Warning[206]: Found call to macro in column 1. (DELAY)
+                          M DELAY 0x80
+Warning[205]: Found directive in column 1. (LOCAL)
+  0000                    M LOCAL LABL
+Warning[205]: Found directive in column 1. (BANKSEL)
+032C   1683 1303          M BANKSEL OPTION_REG
+Warning[203]: Found opcode in column 1. (MOVLW)
+032E   3080               M MOVLW 0x80
+Warning[203]: Found opcode in column 1. (MOVWF)
+MPASM  5.51                      UNTITLED.ASM   12-7-2022  9:00:57         PAGE 35
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+032F   0081               M MOVWF OPTION_REG
+Warning[205]: Found directive in column 1. (BANKSEL)
+0330   1283 1303          M BANKSEL TMR0
+Warning[203]: Found opcode in column 1. (CLRF)
+0332   0181               M CLRF TMR0
+Warning[203]: Found opcode in column 1. (BCF)
+0333   110B               M BCF INTCON,T0IF
+0334                      M LABL:
+Warning[203]: Found opcode in column 1. (BTFSS)
+0334   1D0B               M BTFSS INTCON,T0IF
+Warning[203]: Found opcode in column 1. (GOTO)
+0335   2???               M GOTO LABL
+Warning[203]: Found opcode in column 1. (BCF)
+0336   1107               M BCF PORTC,2
+Warning[206]: Found call to macro in column 1. (DELAY)
+                      00124 DELAY 0X87
+Warning[205]: Found directive in column 1. (LOCAL)
+  0000                    M LOCAL LABL
+Warning[205]: Found directive in column 1. (BANKSEL)
+0337   1683 1303          M BANKSEL OPTION_REG
+Warning[203]: Found opcode in column 1. (MOVLW)
+0339   3087               M MOVLW 0X87
+Warning[203]: Found opcode in column 1. (MOVWF)
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+033A   0081               M MOVWF OPTION_REG
+Warning[205]: Found directive in column 1. (BANKSEL)
+033B   1283 1303          M BANKSEL TMR0
+Warning[203]: Found opcode in column 1. (CLRF)
+033D   0181               M CLRF TMR0
+Warning[203]: Found opcode in column 1. (BCF)
+033E   110B               M BCF INTCON,T0IF
+033F                      M LABL:
+Warning[203]: Found opcode in column 1. (BTFSS)
+033F   1D0B               M BTFSS INTCON,T0IF
+Warning[203]: Found opcode in column 1. (GOTO)
+0340   2???               M GOTO LABL
+Warning[203]: Found opcode in column 1. (GOTO)
+0341   2???           00125 GOTO MAIN
+0342                  00126 LABEL4
+Warning[206]: Found call to macro in column 1. (CMD)
+                      00127 CMD 0X01
+Warning[203]: Found opcode in column 1. (MOVLW)
+0342   3001               M MOVLW 0X01
+Warning[203]: Found opcode in column 1. (MOVWF)
+0343   0088               M MOVWF PORTD
+Warning[203]: Found opcode in column 1. (BCF)
+0344   1007               M BCF PORTC,0
+Warning[203]: Found opcode in column 1. (BCF)
+0345   1087               M BCF PORTC,1
+Warning[203]: Found opcode in column 1. (BSF)
+0346   1507               M BSF PORTC,2
+Warning[206]: Found call to macro in column 1. (DELAY)
+MPASM  5.51                      UNTITLED.ASM   12-7-2022  9:00:57         PAGE 36
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                          M DELAY 0x80
+Warning[205]: Found directive in column 1. (LOCAL)
+  0000                    M LOCAL LABL
+Warning[205]: Found directive in column 1. (BANKSEL)
+0347   1683 1303          M BANKSEL OPTION_REG
+Warning[203]: Found opcode in column 1. (MOVLW)
+0349   3080               M MOVLW 0x80
+Warning[203]: Found opcode in column 1. (MOVWF)
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+034A   0081               M MOVWF OPTION_REG
+Warning[205]: Found directive in column 1. (BANKSEL)
+034B   1283 1303          M BANKSEL TMR0
+Warning[203]: Found opcode in column 1. (CLRF)
+034D   0181               M CLRF TMR0
+Warning[203]: Found opcode in column 1. (BCF)
+034E   110B               M BCF INTCON,T0IF
+034F                      M LABL:
+Warning[203]: Found opcode in column 1. (BTFSS)
+034F   1D0B               M BTFSS INTCON,T0IF
+Warning[203]: Found opcode in column 1. (GOTO)
+0350   2???               M GOTO LABL
+Warning[203]: Found opcode in column 1. (BCF)
+0351   1107               M BCF PORTC,2
+Warning[203]: Found opcode in column 1. (CLRF)
+0352   0187           00128 CLRF PORTC
+Warning[206]: Found call to macro in column 1. (DTR)
+                      00129 DTR 'T'
+Warning[203]: Found opcode in column 1. (MOVLW)
+0353   3054               M MOVLW 'T'
+Warning[203]: Found opcode in column 1. (MOVWF)
+0354   0088               M MOVWF PORTD
+Warning[203]: Found opcode in column 1. (BSF)
+0355   1407               M BSF PORTC,0
+Warning[203]: Found opcode in column 1. (BCF)
+0356   1087               M BCF PORTC,1
+Warning[203]: Found opcode in column 1. (BSF)
+0357   1507               M BSF PORTC,2
+Warning[206]: Found call to macro in column 1. (DELAY)
+                          M DELAY 0x80
+Warning[205]: Found directive in column 1. (LOCAL)
+  0000                    M LOCAL LABL
+Warning[205]: Found directive in column 1. (BANKSEL)
+0358   1683 1303          M BANKSEL OPTION_REG
+Warning[203]: Found opcode in column 1. (MOVLW)
+035A   3080               M MOVLW 0x80
+Warning[203]: Found opcode in column 1. (MOVWF)
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+035B   0081               M MOVWF OPTION_REG
+Warning[205]: Found directive in column 1. (BANKSEL)
+035C   1283 1303          M BANKSEL TMR0
+Warning[203]: Found opcode in column 1. (CLRF)
+035E   0181               M CLRF TMR0
+Warning[203]: Found opcode in column 1. (BCF)
+MPASM  5.51                      UNTITLED.ASM   12-7-2022  9:00:57         PAGE 37
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+035F   110B               M BCF INTCON,T0IF
+0360                      M LABL:
+Warning[203]: Found opcode in column 1. (BTFSS)
+0360   1D0B               M BTFSS INTCON,T0IF
+Warning[203]: Found opcode in column 1. (GOTO)
+0361   2???               M GOTO LABL
+Warning[203]: Found opcode in column 1. (BCF)
+0362   1107               M BCF PORTC,2
+Warning[206]: Found call to macro in column 1. (DTR)
+                      00130 DTR 'O'
+Warning[203]: Found opcode in column 1. (MOVLW)
+0363   304F               M MOVLW 'O'
+Warning[203]: Found opcode in column 1. (MOVWF)
+0364   0088               M MOVWF PORTD
+Warning[203]: Found opcode in column 1. (BSF)
+0365   1407               M BSF PORTC,0
+Warning[203]: Found opcode in column 1. (BCF)
+0366   1087               M BCF PORTC,1
+Warning[203]: Found opcode in column 1. (BSF)
+0367   1507               M BSF PORTC,2
+Warning[206]: Found call to macro in column 1. (DELAY)
+                          M DELAY 0x80
+Warning[205]: Found directive in column 1. (LOCAL)
+  0000                    M LOCAL LABL
+Warning[205]: Found directive in column 1. (BANKSEL)
+0368   1683 1303          M BANKSEL OPTION_REG
+Warning[203]: Found opcode in column 1. (MOVLW)
+036A   3080               M MOVLW 0x80
+Warning[203]: Found opcode in column 1. (MOVWF)
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+036B   0081               M MOVWF OPTION_REG
+Warning[205]: Found directive in column 1. (BANKSEL)
+036C   1283 1303          M BANKSEL TMR0
+Warning[203]: Found opcode in column 1. (CLRF)
+036E   0181               M CLRF TMR0
+Warning[203]: Found opcode in column 1. (BCF)
+036F   110B               M BCF INTCON,T0IF
+0370                      M LABL:
+Warning[203]: Found opcode in column 1. (BTFSS)
+0370   1D0B               M BTFSS INTCON,T0IF
+Warning[203]: Found opcode in column 1. (GOTO)
+0371   2???               M GOTO LABL
+Warning[203]: Found opcode in column 1. (BCF)
+0372   1107               M BCF PORTC,2
+Warning[206]: Found call to macro in column 1. (DTR)
+                      00131 DTR 'O'
+Warning[203]: Found opcode in column 1. (MOVLW)
+0373   304F               M MOVLW 'O'
+Warning[203]: Found opcode in column 1. (MOVWF)
+0374   0088               M MOVWF PORTD
+Warning[203]: Found opcode in column 1. (BSF)
+0375   1407               M BSF PORTC,0
+Warning[203]: Found opcode in column 1. (BCF)
+MPASM  5.51                      UNTITLED.ASM   12-7-2022  9:00:57         PAGE 38
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0376   1087               M BCF PORTC,1
+Warning[203]: Found opcode in column 1. (BSF)
+0377   1507               M BSF PORTC,2
+Warning[206]: Found call to macro in column 1. (DELAY)
+                          M DELAY 0x80
+Warning[205]: Found directive in column 1. (LOCAL)
+  0000                    M LOCAL LABL
+Warning[205]: Found directive in column 1. (BANKSEL)
+0378   1683 1303          M BANKSEL OPTION_REG
+Warning[203]: Found opcode in column 1. (MOVLW)
+037A   3080               M MOVLW 0x80
+Warning[203]: Found opcode in column 1. (MOVWF)
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+037B   0081               M MOVWF OPTION_REG
+Warning[205]: Found directive in column 1. (BANKSEL)
+037C   1283 1303          M BANKSEL TMR0
+Warning[203]: Found opcode in column 1. (CLRF)
+037E   0181               M CLRF TMR0
+Warning[203]: Found opcode in column 1. (BCF)
+037F   110B               M BCF INTCON,T0IF
+0380                      M LABL:
+Warning[203]: Found opcode in column 1. (BTFSS)
+0380   1D0B               M BTFSS INTCON,T0IF
+Warning[203]: Found opcode in column 1. (GOTO)
+0381   2???               M GOTO LABL
+Warning[203]: Found opcode in column 1. (BCF)
+0382   1107               M BCF PORTC,2
+Warning[206]: Found call to macro in column 1. (DTR)
+                      00132 DTR ' '
+Warning[203]: Found opcode in column 1. (MOVLW)
+0383   3020               M MOVLW ' '
+Warning[203]: Found opcode in column 1. (MOVWF)
+0384   0088               M MOVWF PORTD
+Warning[203]: Found opcode in column 1. (BSF)
+0385   1407               M BSF PORTC,0
+Warning[203]: Found opcode in column 1. (BCF)
+0386   1087               M BCF PORTC,1
+Warning[203]: Found opcode in column 1. (BSF)
+0387   1507               M BSF PORTC,2
+Warning[206]: Found call to macro in column 1. (DELAY)
+                          M DELAY 0x80
+Warning[205]: Found directive in column 1. (LOCAL)
+  0000                    M LOCAL LABL
+Warning[205]: Found directive in column 1. (BANKSEL)
+0388   1683 1303          M BANKSEL OPTION_REG
+Warning[203]: Found opcode in column 1. (MOVLW)
+038A   3080               M MOVLW 0x80
+Warning[203]: Found opcode in column 1. (MOVWF)
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+038B   0081               M MOVWF OPTION_REG
+Warning[205]: Found directive in column 1. (BANKSEL)
+038C   1283 1303          M BANKSEL TMR0
+Warning[203]: Found opcode in column 1. (CLRF)
+MPASM  5.51                      UNTITLED.ASM   12-7-2022  9:00:57         PAGE 39
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+038E   0181               M CLRF TMR0
+Warning[203]: Found opcode in column 1. (BCF)
+038F   110B               M BCF INTCON,T0IF
+0390                      M LABL:
+Warning[203]: Found opcode in column 1. (BTFSS)
+0390   1D0B               M BTFSS INTCON,T0IF
+Warning[203]: Found opcode in column 1. (GOTO)
+0391   2???               M GOTO LABL
+Warning[203]: Found opcode in column 1. (BCF)
+0392   1107               M BCF PORTC,2
+Warning[206]: Found call to macro in column 1. (DTR)
+                      00133 DTR 'H'
+Warning[203]: Found opcode in column 1. (MOVLW)
+0393   3048               M MOVLW 'H'
+Warning[203]: Found opcode in column 1. (MOVWF)
+0394   0088               M MOVWF PORTD
+Warning[203]: Found opcode in column 1. (BSF)
+0395   1407               M BSF PORTC,0
+Warning[203]: Found opcode in column 1. (BCF)
+0396   1087               M BCF PORTC,1
+Warning[203]: Found opcode in column 1. (BSF)
+0397   1507               M BSF PORTC,2
+Warning[206]: Found call to macro in column 1. (DELAY)
+                          M DELAY 0x80
+Warning[205]: Found directive in column 1. (LOCAL)
+  0000                    M LOCAL LABL
+Warning[205]: Found directive in column 1. (BANKSEL)
+0398   1683 1303          M BANKSEL OPTION_REG
+Warning[203]: Found opcode in column 1. (MOVLW)
+039A   3080               M MOVLW 0x80
+Warning[203]: Found opcode in column 1. (MOVWF)
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+039B   0081               M MOVWF OPTION_REG
+Warning[205]: Found directive in column 1. (BANKSEL)
+039C   1283 1303          M BANKSEL TMR0
+Warning[203]: Found opcode in column 1. (CLRF)
+039E   0181               M CLRF TMR0
+Warning[203]: Found opcode in column 1. (BCF)
+039F   110B               M BCF INTCON,T0IF
+03A0                      M LABL:
+Warning[203]: Found opcode in column 1. (BTFSS)
+03A0   1D0B               M BTFSS INTCON,T0IF
+Warning[203]: Found opcode in column 1. (GOTO)
+03A1   2???               M GOTO LABL
+Warning[203]: Found opcode in column 1. (BCF)
+03A2   1107               M BCF PORTC,2
+Warning[206]: Found call to macro in column 1. (DTR)
+                      00134 DTR 'I'
+Warning[203]: Found opcode in column 1. (MOVLW)
+03A3   3049               M MOVLW 'I'
+Warning[203]: Found opcode in column 1. (MOVWF)
+03A4   0088               M MOVWF PORTD
+Warning[203]: Found opcode in column 1. (BSF)
+MPASM  5.51                      UNTITLED.ASM   12-7-2022  9:00:57         PAGE 40
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+03A5   1407               M BSF PORTC,0
+Warning[203]: Found opcode in column 1. (BCF)
+03A6   1087               M BCF PORTC,1
+Warning[203]: Found opcode in column 1. (BSF)
+03A7   1507               M BSF PORTC,2
+Warning[206]: Found call to macro in column 1. (DELAY)
+                          M DELAY 0x80
+Warning[205]: Found directive in column 1. (LOCAL)
+  0000                    M LOCAL LABL
+Warning[205]: Found directive in column 1. (BANKSEL)
+03A8   1683 1303          M BANKSEL OPTION_REG
+Warning[203]: Found opcode in column 1. (MOVLW)
+03AA   3080               M MOVLW 0x80
+Warning[203]: Found opcode in column 1. (MOVWF)
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+03AB   0081               M MOVWF OPTION_REG
+Warning[205]: Found directive in column 1. (BANKSEL)
+03AC   1283 1303          M BANKSEL TMR0
+Warning[203]: Found opcode in column 1. (CLRF)
+03AE   0181               M CLRF TMR0
+Warning[203]: Found opcode in column 1. (BCF)
+03AF   110B               M BCF INTCON,T0IF
+03B0                      M LABL:
+Warning[203]: Found opcode in column 1. (BTFSS)
+03B0   1D0B               M BTFSS INTCON,T0IF
+Warning[203]: Found opcode in column 1. (GOTO)
+03B1   2???               M GOTO LABL
+Warning[203]: Found opcode in column 1. (BCF)
+03B2   1107               M BCF PORTC,2
+Warning[206]: Found call to macro in column 1. (DTR)
+                      00135 DTR 'G'
+Warning[203]: Found opcode in column 1. (MOVLW)
+03B3   3047               M MOVLW 'G'
+Warning[203]: Found opcode in column 1. (MOVWF)
+03B4   0088               M MOVWF PORTD
+Warning[203]: Found opcode in column 1. (BSF)
+03B5   1407               M BSF PORTC,0
+Warning[203]: Found opcode in column 1. (BCF)
+03B6   1087               M BCF PORTC,1
+Warning[203]: Found opcode in column 1. (BSF)
+03B7   1507               M BSF PORTC,2
+Warning[206]: Found call to macro in column 1. (DELAY)
+                          M DELAY 0x80
+Warning[205]: Found directive in column 1. (LOCAL)
+  0000                    M LOCAL LABL
+Warning[205]: Found directive in column 1. (BANKSEL)
+03B8   1683 1303          M BANKSEL OPTION_REG
+Warning[203]: Found opcode in column 1. (MOVLW)
+03BA   3080               M MOVLW 0x80
+Warning[203]: Found opcode in column 1. (MOVWF)
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+03BB   0081               M MOVWF OPTION_REG
+Warning[205]: Found directive in column 1. (BANKSEL)
+MPASM  5.51                      UNTITLED.ASM   12-7-2022  9:00:57         PAGE 41
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+03BC   1283 1303          M BANKSEL TMR0
+Warning[203]: Found opcode in column 1. (CLRF)
+03BE   0181               M CLRF TMR0
+Warning[203]: Found opcode in column 1. (BCF)
+03BF   110B               M BCF INTCON,T0IF
+03C0                      M LABL:
+Warning[203]: Found opcode in column 1. (BTFSS)
+03C0   1D0B               M BTFSS INTCON,T0IF
+Warning[203]: Found opcode in column 1. (GOTO)
+03C1   2???               M GOTO LABL
+Warning[203]: Found opcode in column 1. (BCF)
+03C2   1107               M BCF PORTC,2
+Warning[206]: Found call to macro in column 1. (DTR)
+                      00136 DTR 'H'
+Warning[203]: Found opcode in column 1. (MOVLW)
+03C3   3048               M MOVLW 'H'
+Warning[203]: Found opcode in column 1. (MOVWF)
+03C4   0088               M MOVWF PORTD
+Warning[203]: Found opcode in column 1. (BSF)
+03C5   1407               M BSF PORTC,0
+Warning[203]: Found opcode in column 1. (BCF)
+03C6   1087               M BCF PORTC,1
+Warning[203]: Found opcode in column 1. (BSF)
+03C7   1507               M BSF PORTC,2
+Warning[206]: Found call to macro in column 1. (DELAY)
+                          M DELAY 0x80
+Warning[205]: Found directive in column 1. (LOCAL)
+  0000                    M LOCAL LABL
+Warning[205]: Found directive in column 1. (BANKSEL)
+03C8   1683 1303          M BANKSEL OPTION_REG
+Warning[203]: Found opcode in column 1. (MOVLW)
+03CA   3080               M MOVLW 0x80
+Warning[203]: Found opcode in column 1. (MOVWF)
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+03CB   0081               M MOVWF OPTION_REG
+Warning[205]: Found directive in column 1. (BANKSEL)
+03CC   1283 1303          M BANKSEL TMR0
+Warning[203]: Found opcode in column 1. (CLRF)
+03CE   0181               M CLRF TMR0
+Warning[203]: Found opcode in column 1. (BCF)
+03CF   110B               M BCF INTCON,T0IF
+03D0                      M LABL:
+Warning[203]: Found opcode in column 1. (BTFSS)
+03D0   1D0B               M BTFSS INTCON,T0IF
+Warning[203]: Found opcode in column 1. (GOTO)
+03D1   2???               M GOTO LABL
+Warning[203]: Found opcode in column 1. (BCF)
+03D2   1107               M BCF PORTC,2
+Warning[206]: Found call to macro in column 1. (DTR)
+                      00137 DTR ' '
+Warning[203]: Found opcode in column 1. (MOVLW)
+03D3   3020               M MOVLW ' '
+Warning[203]: Found opcode in column 1. (MOVWF)
+MPASM  5.51                      UNTITLED.ASM   12-7-2022  9:00:57         PAGE 42
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+03D4   0088               M MOVWF PORTD
+Warning[203]: Found opcode in column 1. (BSF)
+03D5   1407               M BSF PORTC,0
+Warning[203]: Found opcode in column 1. (BCF)
+03D6   1087               M BCF PORTC,1
+Warning[203]: Found opcode in column 1. (BSF)
+03D7   1507               M BSF PORTC,2
+Warning[206]: Found call to macro in column 1. (DELAY)
+                          M DELAY 0x80
+Warning[205]: Found directive in column 1. (LOCAL)
+  0000                    M LOCAL LABL
+Warning[205]: Found directive in column 1. (BANKSEL)
+03D8   1683 1303          M BANKSEL OPTION_REG
+Warning[203]: Found opcode in column 1. (MOVLW)
+03DA   3080               M MOVLW 0x80
+Warning[203]: Found opcode in column 1. (MOVWF)
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+03DB   0081               M MOVWF OPTION_REG
+Warning[205]: Found directive in column 1. (BANKSEL)
+03DC   1283 1303          M BANKSEL TMR0
+Warning[203]: Found opcode in column 1. (CLRF)
+03DE   0181               M CLRF TMR0
+Warning[203]: Found opcode in column 1. (BCF)
+03DF   110B               M BCF INTCON,T0IF
+03E0                      M LABL:
+Warning[203]: Found opcode in column 1. (BTFSS)
+03E0   1D0B               M BTFSS INTCON,T0IF
+Warning[203]: Found opcode in column 1. (GOTO)
+03E1   2???               M GOTO LABL
+Warning[203]: Found opcode in column 1. (BCF)
+03E2   1107               M BCF PORTC,2
+Warning[206]: Found call to macro in column 1. (DTR)
+                      00138 DTR 'L'
+Warning[203]: Found opcode in column 1. (MOVLW)
+03E3   304C               M MOVLW 'L'
+Warning[203]: Found opcode in column 1. (MOVWF)
+03E4   0088               M MOVWF PORTD
+Warning[203]: Found opcode in column 1. (BSF)
+03E5   1407               M BSF PORTC,0
+Warning[203]: Found opcode in column 1. (BCF)
+03E6   1087               M BCF PORTC,1
+Warning[203]: Found opcode in column 1. (BSF)
+03E7   1507               M BSF PORTC,2
+Warning[206]: Found call to macro in column 1. (DELAY)
+                          M DELAY 0x80
+Warning[205]: Found directive in column 1. (LOCAL)
+  0000                    M LOCAL LABL
+Warning[205]: Found directive in column 1. (BANKSEL)
+03E8   1683 1303          M BANKSEL OPTION_REG
+Warning[203]: Found opcode in column 1. (MOVLW)
+03EA   3080               M MOVLW 0x80
+Warning[203]: Found opcode in column 1. (MOVWF)
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+MPASM  5.51                      UNTITLED.ASM   12-7-2022  9:00:57         PAGE 43
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+03EB   0081               M MOVWF OPTION_REG
+Warning[205]: Found directive in column 1. (BANKSEL)
+03EC   1283 1303          M BANKSEL TMR0
+Warning[203]: Found opcode in column 1. (CLRF)
+03EE   0181               M CLRF TMR0
+Warning[203]: Found opcode in column 1. (BCF)
+03EF   110B               M BCF INTCON,T0IF
+03F0                      M LABL:
+Warning[203]: Found opcode in column 1. (BTFSS)
+03F0   1D0B               M BTFSS INTCON,T0IF
+Warning[203]: Found opcode in column 1. (GOTO)
+03F1   2???               M GOTO LABL
+Warning[203]: Found opcode in column 1. (BCF)
+03F2   1107               M BCF PORTC,2
+Warning[206]: Found call to macro in column 1. (DTR)
+                      00139 DTR 'I'
+Warning[203]: Found opcode in column 1. (MOVLW)
+03F3   3049               M MOVLW 'I'
+Warning[203]: Found opcode in column 1. (MOVWF)
+03F4   0088               M MOVWF PORTD
+Warning[203]: Found opcode in column 1. (BSF)
+03F5   1407               M BSF PORTC,0
+Warning[203]: Found opcode in column 1. (BCF)
+03F6   1087               M BCF PORTC,1
+Warning[203]: Found opcode in column 1. (BSF)
+03F7   1507               M BSF PORTC,2
+Warning[206]: Found call to macro in column 1. (DELAY)
+                          M DELAY 0x80
+Warning[205]: Found directive in column 1. (LOCAL)
+  0000                    M LOCAL LABL
+Warning[205]: Found directive in column 1. (BANKSEL)
+03F8   1683 1303          M BANKSEL OPTION_REG
+Warning[203]: Found opcode in column 1. (MOVLW)
+03FA   3080               M MOVLW 0x80
+Warning[203]: Found opcode in column 1. (MOVWF)
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+03FB   0081               M MOVWF OPTION_REG
+Warning[205]: Found directive in column 1. (BANKSEL)
+03FC   1283 1303          M BANKSEL TMR0
+Warning[203]: Found opcode in column 1. (CLRF)
+03FE   0181               M CLRF TMR0
+Warning[203]: Found opcode in column 1. (BCF)
+03FF   110B               M BCF INTCON,T0IF
+0400                      M LABL:
+Warning[203]: Found opcode in column 1. (BTFSS)
+0400   1D0B               M BTFSS INTCON,T0IF
+Warning[203]: Found opcode in column 1. (GOTO)
+0401   2???               M GOTO LABL
+Warning[203]: Found opcode in column 1. (BCF)
+0402   1107               M BCF PORTC,2
+                      00140  DTR 'G'
+Warning[203]: Found opcode in column 1. (MOVLW)
+0403   3047               M MOVLW 'G'
+MPASM  5.51                      UNTITLED.ASM   12-7-2022  9:00:57         PAGE 44
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+Warning[203]: Found opcode in column 1. (MOVWF)
+0404   0088               M MOVWF PORTD
+Warning[203]: Found opcode in column 1. (BSF)
+0405   1407               M BSF PORTC,0
+Warning[203]: Found opcode in column 1. (BCF)
+0406   1087               M BCF PORTC,1
+Warning[203]: Found opcode in column 1. (BSF)
+0407   1507               M BSF PORTC,2
+Warning[206]: Found call to macro in column 1. (DELAY)
+                          M DELAY 0x80
+Warning[205]: Found directive in column 1. (LOCAL)
+  0000                    M LOCAL LABL
+Warning[205]: Found directive in column 1. (BANKSEL)
+0408   1683 1303          M BANKSEL OPTION_REG
+Warning[203]: Found opcode in column 1. (MOVLW)
+040A   3080               M MOVLW 0x80
+Warning[203]: Found opcode in column 1. (MOVWF)
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+040B   0081               M MOVWF OPTION_REG
+Warning[205]: Found directive in column 1. (BANKSEL)
+040C   1283 1303          M BANKSEL TMR0
+Warning[203]: Found opcode in column 1. (CLRF)
+040E   0181               M CLRF TMR0
+Warning[203]: Found opcode in column 1. (BCF)
+040F   110B               M BCF INTCON,T0IF
+0410                      M LABL:
+Warning[203]: Found opcode in column 1. (BTFSS)
+0410   1D0B               M BTFSS INTCON,T0IF
+Warning[203]: Found opcode in column 1. (GOTO)
+0411   2???               M GOTO LABL
+Warning[203]: Found opcode in column 1. (BCF)
+0412   1107               M BCF PORTC,2
+                      00141  DTR 'H'
+Warning[203]: Found opcode in column 1. (MOVLW)
+0413   3048               M MOVLW 'H'
+Warning[203]: Found opcode in column 1. (MOVWF)
+0414   0088               M MOVWF PORTD
+Warning[203]: Found opcode in column 1. (BSF)
+0415   1407               M BSF PORTC,0
+Warning[203]: Found opcode in column 1. (BCF)
+0416   1087               M BCF PORTC,1
+Warning[203]: Found opcode in column 1. (BSF)
+0417   1507               M BSF PORTC,2
+Warning[206]: Found call to macro in column 1. (DELAY)
+                          M DELAY 0x80
+Warning[205]: Found directive in column 1. (LOCAL)
+  0000                    M LOCAL LABL
+Warning[205]: Found directive in column 1. (BANKSEL)
+0418   1683 1303          M BANKSEL OPTION_REG
+Warning[203]: Found opcode in column 1. (MOVLW)
+041A   3080               M MOVLW 0x80
+Warning[203]: Found opcode in column 1. (MOVWF)
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+MPASM  5.51                      UNTITLED.ASM   12-7-2022  9:00:57         PAGE 45
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+041B   0081               M MOVWF OPTION_REG
+Warning[205]: Found directive in column 1. (BANKSEL)
+041C   1283 1303          M BANKSEL TMR0
+Warning[203]: Found opcode in column 1. (CLRF)
+041E   0181               M CLRF TMR0
+Warning[203]: Found opcode in column 1. (BCF)
+041F   110B               M BCF INTCON,T0IF
+0420                      M LABL:
+Warning[203]: Found opcode in column 1. (BTFSS)
+0420   1D0B               M BTFSS INTCON,T0IF
+Warning[203]: Found opcode in column 1. (GOTO)
+0421   2???               M GOTO LABL
+Warning[203]: Found opcode in column 1. (BCF)
+0422   1107               M BCF PORTC,2
+                      00142  DTR 'T'
+Warning[203]: Found opcode in column 1. (MOVLW)
+0423   3054               M MOVLW 'T'
+Warning[203]: Found opcode in column 1. (MOVWF)
+0424   0088               M MOVWF PORTD
+Warning[203]: Found opcode in column 1. (BSF)
+0425   1407               M BSF PORTC,0
+Warning[203]: Found opcode in column 1. (BCF)
+0426   1087               M BCF PORTC,1
+Warning[203]: Found opcode in column 1. (BSF)
+0427   1507               M BSF PORTC,2
+Warning[206]: Found call to macro in column 1. (DELAY)
+                          M DELAY 0x80
+Warning[205]: Found directive in column 1. (LOCAL)
+  0000                    M LOCAL LABL
+Warning[205]: Found directive in column 1. (BANKSEL)
+0428   1683 1303          M BANKSEL OPTION_REG
+Warning[203]: Found opcode in column 1. (MOVLW)
+042A   3080               M MOVLW 0x80
+Warning[203]: Found opcode in column 1. (MOVWF)
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+042B   0081               M MOVWF OPTION_REG
+Warning[205]: Found directive in column 1. (BANKSEL)
+042C   1283 1303          M BANKSEL TMR0
+Warning[203]: Found opcode in column 1. (CLRF)
+042E   0181               M CLRF TMR0
+Warning[203]: Found opcode in column 1. (BCF)
+042F   110B               M BCF INTCON,T0IF
+0430                      M LABL:
+Warning[203]: Found opcode in column 1. (BTFSS)
+0430   1D0B               M BTFSS INTCON,T0IF
+Warning[203]: Found opcode in column 1. (GOTO)
+0431   2???               M GOTO LABL
+Warning[203]: Found opcode in column 1. (BCF)
+0432   1107               M BCF PORTC,2
+Warning[206]: Found call to macro in column 1. (DELAY)
+                      00143 DELAY 0X87
+Warning[205]: Found directive in column 1. (LOCAL)
+  0000                    M LOCAL LABL
+MPASM  5.51                      UNTITLED.ASM   12-7-2022  9:00:57         PAGE 46
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+Warning[205]: Found directive in column 1. (BANKSEL)
+0433   1683 1303          M BANKSEL OPTION_REG
+Warning[203]: Found opcode in column 1. (MOVLW)
+0435   3087               M MOVLW 0X87
+Warning[203]: Found opcode in column 1. (MOVWF)
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0436   0081               M MOVWF OPTION_REG
+Warning[205]: Found directive in column 1. (BANKSEL)
+0437   1283 1303          M BANKSEL TMR0
+Warning[203]: Found opcode in column 1. (CLRF)
+0439   0181               M CLRF TMR0
+Warning[203]: Found opcode in column 1. (BCF)
+043A   110B               M BCF INTCON,T0IF
+043B                      M LABL:
+Warning[203]: Found opcode in column 1. (BTFSS)
+043B   1D0B               M BTFSS INTCON,T0IF
+Warning[203]: Found opcode in column 1. (GOTO)
+043C   2???               M GOTO LABL
+Warning[203]: Found opcode in column 1. (GOTO)
+043D   2???           00144 GOTO MAIN
+Warning[207]: Found label after column 1. (INT_S)
+043E                  00145  INT_S
+043E   081E           00146  MOVF ADRESH,W 
+Warning[203]: Found opcode in column 1. (MOVWF)
+043F   00A1           00147 MOVWF ADC_DATA 
+Warning[203]: Found opcode in column 1. (MOVF)
+0440   0821           00148 MOVF ADC_DATA,W 
+Warning[203]: Found opcode in column 1. (MOVWF)
+0441   0088           00149 MOVWF PORTD
+0442   130C           00150  BCF PIR1,ADIF 
+0443   1420           00151  BSF FLAGS,DATA_READY 
+0444   151F           00152  BSF ADCON0,GO 
+0445   2???           00153  GOTO MAIN 
+                      00154  END
+MPASM  5.51                      UNTITLED.ASM   12-7-2022  9:00:57         PAGE 47
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+ACKDT                             00000005
+ACKEN                             00000004
+ACKSTAT                           00000006
+ADCON0                            0000001F
+ADCON1                            0000009F
+ADCS0                             00000006
+ADCS1                             00000007
+ADC_DATA                          00000021
+ADDEN                             00000003
+ADFM                              00000007
+ADIE                              00000006
+ADIF                              00000006
+ADON                              00000000
+ADRESH                            0000001E
+ADRESL                            0000009E
+BCLIE                             00000003
+BCLIF                             00000003
+BF                                00000000
+BRGH                              00000002
+C                                 00000000
+CCP1CON                           00000017
+CCP1IE                            00000002
+CCP1IF                            00000002
+CCP1M0                            00000000
+CCP1M1                            00000001
+CCP1M2                            00000002
+CCP1M3                            00000003
+CCP1X                             00000005
+CCP1Y                             00000004
+CCP2CON                           0000001D
+CCP2IE                            00000000
+CCP2IF                            00000000
+CCP2M0                            00000000
+CCP2M1                            00000001
+CCP2M2                            00000002
+CCP2M3                            00000003
+CCP2X                             00000005
+CCP2Y                             00000004
+CCPR1                             00000015
+CCPR1H                            00000016
+CCPR1L                            00000015
+CCPR2                             0000001B
+CCPR2H                            0000001C
+CCPR2L                            0000001B
+CHS0                              00000003
+CHS1                              00000004
+CHS2                              00000005
+CKE                               00000006
+CKP                               00000004
+CMD                               
+CREN                              00000004
+CSRC                              00000007
+D                                 00000005
+MPASM  5.51                      UNTITLED.ASM   12-7-2022  9:00:57         PAGE 48
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+DATA_ADDRESS                      00000005
+DATA_READY                        00000000
+DC                                00000001
+DELAY                             
+DTR                               
+D_A                               00000005
+D_NOT_A                           00000005
+EEADR                             0000010D
+EEADRH                            0000010F
+EECON1                            0000018C
+EECON2                            0000018D
+EEDATA                            0000010C
+EEDATH                            0000010E
+EEIE                              00000004
+EEIF                              00000004
+EEPGD                             00000007
+F                                 00000001
+FERR                              00000002
+FLAGS                             00000020
+FSR                               00000004
+GCEN                              00000007
+GIE                               00000007
+GO                                00000002
+GO_DONE                           00000002
+GO_NOT_DONE                       00000002
+I2C_DATA                          00000005
+I2C_READ                          00000002
+I2C_START                         00000003
+I2C_STOP                          00000004
+IBF                               00000007
+IBOV                              00000005
+INDF                              00000000
+INTCON                            0000000B
+INTE                              00000004
+INTEDG                            00000006
+INTF                              00000001
+INT_S                             0000043E
+IRP                               00000007
+ITR                               00000009
+LABEL1                            000000E8
+LABEL2                            000001A7
+LABEL3                            00000285
+LABEL4                            00000342
+MAIN                              000000D3
+NOT_A                             00000005
+NOT_ADDRESS                       00000005
+NOT_BO                            00000000
+NOT_BOR                           00000000
+NOT_DONE                          00000002
+NOT_PD                            00000003
+NOT_POR                           00000001
+NOT_RBPU                          00000007
+NOT_RC8                           00000006
+MPASM  5.51                      UNTITLED.ASM   12-7-2022  9:00:57         PAGE 49
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+NOT_T1SYNC                        00000002
+NOT_TO                            00000004
+NOT_TX8                           00000006
+NOT_W                             00000002
+NOT_WRITE                         00000002
+OBF                               00000006
+OERR                              00000001
+OPTION_REG                        00000081
+P                                 00000004
+PCFG0                             00000000
+PCFG1                             00000001
+PCFG2                             00000002
+PCFG3                             00000003
+PCL                               00000002
+PCLATH                            0000000A
+PCON                              0000008E
+PEIE                              00000006
+PEN                               00000002
+PIE1                              0000008C
+PIE2                              0000008D
+PIR1                              0000000C
+PIR2                              0000000D
+PORTA                             00000005
+PORTB                             00000006
+PORTC                             00000007
+PORTD                             00000008
+PORTE                             00000009
+PR2                               00000092
+PS0                               00000000
+PS1                               00000001
+PS2                               00000002
+PSA                               00000003
+PSPIE                             00000007
+PSPIF                             00000007
+PSPMODE                           00000004
+R                                 00000002
+RA0                               00000000
+RA1                               00000001
+RA2                               00000002
+RA3                               00000003
+RA4                               00000004
+RA5                               00000005
+RB0                               00000000
+RB1                               00000001
+RB2                               00000002
+RB3                               00000003
+RB4                               00000004
+RB5                               00000005
+RB6                               00000006
+RB7                               00000007
+RBIE                              00000003
+RBIF                              00000000
+RC0                               00000000
+MPASM  5.51                      UNTITLED.ASM   12-7-2022  9:00:57         PAGE 50
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+RC1                               00000001
+RC2                               00000002
+RC3                               00000003
+RC4                               00000004
+RC5                               00000005
+RC6                               00000006
+RC7                               00000007
+RC8_9                             00000006
+RC9                               00000006
+RCD8                              00000000
+RCEN                              00000003
+RCIE                              00000005
+RCIF                              00000005
+RCREG                             0000001A
+RCSTA                             00000018
+RD                                00000000
+RD0                               00000000
+RD1                               00000001
+RD2                               00000002
+RD3                               00000003
+RD4                               00000004
+RD5                               00000005
+RD6                               00000006
+RD7                               00000007
+RE0                               00000000
+RE1                               00000001
+RE2                               00000002
+READ_WRITE                        00000002
+RP0                               00000005
+RP1                               00000006
+RSEN                              00000001
+RX9                               00000006
+RX9D                              00000000
+R_NOT_W                           00000002
+R_W                               00000002
+S                                 00000003
+SEN                               00000000
+SMP                               00000007
+SPBRG                             00000099
+SPEN                              00000007
+SREN                              00000005
+SSPADD                            00000093
+SSPBUF                            00000013
+SSPCON                            00000014
+SSPCON2                           00000091
+SSPEN                             00000005
+SSPIE                             00000003
+SSPIF                             00000003
+SSPM0                             00000000
+SSPM1                             00000001
+SSPM2                             00000002
+SSPM3                             00000003
+SSPOV                             00000006
+MPASM  5.51                      UNTITLED.ASM   12-7-2022  9:00:57         PAGE 51
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+SSPSTAT                           00000094
+STATUS                            00000003
+SYNC                              00000004
+T0CS                              00000005
+T0IE                              00000005
+T0IF                              00000002
+T0SE                              00000004
+T1CKPS0                           00000004
+T1CKPS1                           00000005
+T1CON                             00000010
+T1INSYNC                          00000002
+T1OSCEN                           00000003
+T1SYNC                            00000002
+T2CKPS0                           00000000
+T2CKPS1                           00000001
+T2CON                             00000012
+TMR0                              00000001
+TMR0IE                            00000005
+TMR0IF                            00000002
+TMR1                              0000000E
+TMR1CS                            00000001
+TMR1H                             0000000F
+TMR1IE                            00000000
+TMR1IF                            00000000
+TMR1L                             0000000E
+TMR1ON                            00000000
+TMR2                              00000011
+TMR2IE                            00000001
+TMR2IF                            00000001
+TMR2ON                            00000002
+TOUTPS0                           00000003
+TOUTPS1                           00000004
+TOUTPS2                           00000005
+TOUTPS3                           00000006
+TRISA                             00000085
+TRISA0                            00000000
+TRISA1                            00000001
+TRISA2                            00000002
+TRISA3                            00000003
+TRISA4                            00000004
+TRISA5                            00000005
+TRISB                             00000086
+TRISB0                            00000000
+TRISB1                            00000001
+TRISB2                            00000002
+TRISB3                            00000003
+TRISB4                            00000004
+TRISB5                            00000005
+TRISB6                            00000006
+TRISB7                            00000007
+TRISC                             00000087
+TRISC0                            00000000
+TRISC1                            00000001
+MPASM  5.51                      UNTITLED.ASM   12-7-2022  9:00:57         PAGE 52
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+TRISC2                            00000002
+TRISC3                            00000003
+TRISC4                            00000004
+TRISC5                            00000005
+TRISC6                            00000006
+TRISC7                            00000007
+TRISD                             00000088
+TRISD0                            00000000
+TRISD1                            00000001
+TRISD2                            00000002
+TRISD3                            00000003
+TRISD4                            00000004
+TRISD5                            00000005
+TRISD6                            00000006
+TRISD7                            00000007
+TRISE                             00000089
+TRISE0                            00000000
+TRISE1                            00000001
+TRISE2                            00000002
+TRMT                              00000001
+TX8_9                             00000006
+TX9                               00000006
+TX9D                              00000000
+TXD8                              00000000
+TXEN                              00000005
+TXIE                              00000004
+TXIF                              00000004
+TXREG                             00000019
+TXSTA                             00000098
+UA                                00000001
+W                                 00000000
+WCOL                              00000007
+WR                                00000001
+WREN                              00000002
+WRERR                             00000003
+Z                                 00000002
+_BODEN_OFF                        00003FBF
+_BODEN_ON                         00003FFF
+_BOREN_OFF                        00003FBF
+_BOREN_ON                         00003FFF
+_CONFIG                           00002007
+_CPD_OFF                          00003FFF
+_CPD_ON                           00003EFF
+_CP_ALL                           00000FCF
+_CP_HALF                          00001FDF
+_CP_OFF                           00003FFF
+_CP_UPPER_256                     00002FEF
+_DEBUG_OFF                        00003FFF
+_DEBUG_ON                         000037FF
+_DEVID1                           00002006
+_FOSC_EXTRC                       00003FFF
+_FOSC_HS                          00003FFE
+_FOSC_LP                          00003FFC
+MPASM  5.51                      UNTITLED.ASM   12-7-2022  9:00:57         PAGE 53
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+_FOSC_XT                          00003FFD
+_HS_OSC                           00003FFE
+_IDLOC0                           00002000
+_IDLOC1                           00002001
+_IDLOC2                           00002002
+_IDLOC3                           00002003
+_LP_OSC                           00003FFC
+_LVP_OFF                          00003F7F
+_LVP_ON                           00003FFF
+_PWRTE_OFF                        00003FFF
+_PWRTE_ON                         00003FF7
+_RC_OSC                           00003FFF
+_WDTE_OFF                         00003FFB
+_WDTE_ON                          00003FFF
+_WDT_OFF                          00003FFB
+_WDT_ON                           00003FFF
+_WRT_ENABLE_OFF                   00003DFF
+_WRT_ENABLE_ON                    00003FFF
+_WRT_OFF                          00003DFF
+_WRT_ON                           00003FFF
+_XT_OSC                           00003FFD
+__16F877                          00000001
+__DEBUG                           1
+
+Errors   :     0
+Warnings :  1079 reported,     0 suppressed
+Messages :    70 reported,     0 suppressed
+
+

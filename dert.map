@@ -1,0 +1,178 @@
+MPLINK 4.49, Linker
+Linker Map File - Created Wed Dec 07 09:01:04 2022
+
+                                 Section Info
+                  Section       Type    Address   Location Size(Bytes)
+                ---------  ---------  ---------  ---------  ---------
+                   .org_0       code   0x000000    program   0x000002
+                   .cinit    romdata   0x000001    program   0x000004
+                   .org_1       code   0x000008    program   0x00087c
+
+
+
+                              Program Memory Usage 
+                               Start         End      
+                           ---------   ---------      
+                            0x000000    0x000002      
+                            0x000008    0x000445      
+            1089 out of 8454 program addresses used, program memory utilization is 12%
+
+
+
+                              Symbols - Sorted by Name
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                    INT_S   0x00043e    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                      ITR   0x000009    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                   LABEL1   0x0000e8    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                   LABEL2   0x0001a7    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                   LABEL3   0x000285    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                   LABEL4   0x000342    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                     MAIN   0x0000d3    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                 _100LABL   0x000360    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                 _102LABL   0x000370    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                 _104LABL   0x000380    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                 _106LABL   0x000390    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                 _108LABL   0x0003a0    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _10LABL   0x000066    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                 _110LABL   0x0003b0    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                 _112LABL   0x0003c0    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                 _114LABL   0x0003d0    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                 _116LABL   0x0003e0    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                 _118LABL   0x0003f0    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                 _120LABL   0x000400    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                 _122LABL   0x000410    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                 _124LABL   0x000420    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                 _126LABL   0x000430    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                 _127LABL   0x00043b    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _12LABL   0x000076    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _14LABL   0x000086    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _16LABL   0x000096    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _18LABL   0x0000a6    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _20LABL   0x0000b6    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _22LABL   0x0000c6    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _23LABL   0x0000d1    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _25LABL   0x0000f5    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _27LABL   0x000105    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _29LABL   0x000119    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                   _2LABL   0x000026    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _31LABL   0x000129    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _33LABL   0x000139    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _35LABL   0x000149    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _37LABL   0x000159    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _39LABL   0x000169    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _41LABL   0x000179    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _43LABL   0x000189    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _45LABL   0x000199    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _46LABL   0x0001a4    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _48LABL   0x0001b4    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                   _4LABL   0x000036    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _50LABL   0x0001c7    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _52LABL   0x0001d7    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _54LABL   0x0001e7    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _56LABL   0x0001f7    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _58LABL   0x000207    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _60LABL   0x000217    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _62LABL   0x000227    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _64LABL   0x000237    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _66LABL   0x000247    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _68LABL   0x000257    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                   _6LABL   0x000046    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _70LABL   0x000267    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _72LABL   0x000277    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _73LABL   0x000282    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _75LABL   0x000292    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _77LABL   0x0002a4    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _79LABL   0x0002b4    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _81LABL   0x0002c4    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _83LABL   0x0002d4    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _85LABL   0x0002e4    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _87LABL   0x0002f4    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _89LABL   0x000304    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                   _8LABL   0x000056    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _91LABL   0x000314    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _93LABL   0x000324    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _95LABL   0x000334    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _96LABL   0x00033f    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _98LABL   0x00034f    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+
+
+
+                              Symbols - Sorted by Address
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                      ITR   0x000009    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                   _2LABL   0x000026    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                   _4LABL   0x000036    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                   _6LABL   0x000046    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                   _8LABL   0x000056    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _10LABL   0x000066    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _12LABL   0x000076    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _14LABL   0x000086    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _16LABL   0x000096    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _18LABL   0x0000a6    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _20LABL   0x0000b6    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _22LABL   0x0000c6    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _23LABL   0x0000d1    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                     MAIN   0x0000d3    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                   LABEL1   0x0000e8    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _25LABL   0x0000f5    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _27LABL   0x000105    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _29LABL   0x000119    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _31LABL   0x000129    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _33LABL   0x000139    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _35LABL   0x000149    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _37LABL   0x000159    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _39LABL   0x000169    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _41LABL   0x000179    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _43LABL   0x000189    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _45LABL   0x000199    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _46LABL   0x0001a4    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                   LABEL2   0x0001a7    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _48LABL   0x0001b4    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _50LABL   0x0001c7    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _52LABL   0x0001d7    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _54LABL   0x0001e7    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _56LABL   0x0001f7    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _58LABL   0x000207    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _60LABL   0x000217    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _62LABL   0x000227    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _64LABL   0x000237    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _66LABL   0x000247    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _68LABL   0x000257    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _70LABL   0x000267    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _72LABL   0x000277    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _73LABL   0x000282    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                   LABEL3   0x000285    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _75LABL   0x000292    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _77LABL   0x0002a4    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _79LABL   0x0002b4    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _81LABL   0x0002c4    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _83LABL   0x0002d4    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _85LABL   0x0002e4    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _87LABL   0x0002f4    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _89LABL   0x000304    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _91LABL   0x000314    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _93LABL   0x000324    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _95LABL   0x000334    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _96LABL   0x00033f    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                   LABEL4   0x000342    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                  _98LABL   0x00034f    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                 _100LABL   0x000360    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                 _102LABL   0x000370    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                 _104LABL   0x000380    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                 _106LABL   0x000390    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                 _108LABL   0x0003a0    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                 _110LABL   0x0003b0    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                 _112LABL   0x0003c0    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                 _114LABL   0x0003d0    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                 _116LABL   0x0003e0    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                 _118LABL   0x0003f0    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                 _120LABL   0x000400    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                 _122LABL   0x000410    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                 _124LABL   0x000420    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                 _126LABL   0x000430    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                 _127LABL   0x00043b    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+                    INT_S   0x00043e    program     static C:\Users\ashad\Desktop\sem 5\MICRO\project\faseeeh\Untitled.asm
+
+
